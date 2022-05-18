@@ -1,0 +1,68 @@
+{
+  "root": true,
+  "api": {
+    "projectId": "hytow8kc",
+    "dataset": "production"
+  },
+  "project": {
+    "name": "MaxKarlsson.dev"
+  },
+  "plugins": [
+    "@sanity/base",
+    "@sanity/components",
+    "@sanity/default-layout",
+    "@sanity/default-login",
+    "@sanity/desk-tool",
+    "@sanity/vision",
+    "asset-source-thispersondoesnotexist",
+    "content-model-graph",
+    "tabs",
+    "seo-tools",
+    "asset-source-unsplash",
+    "@sanity/color-input",
+    "media",
+    "better-slug",
+    "social-preview",
+    "autocomplete-tags",
+    "dashboard-widget-vercel",
+    "@sanity/dashboard",
+    "@sanity/code-input",
+    "plausible-analytics",
+    "content-calendar"
+  ],
+  "env": {
+    "development": {
+      "plugins": ["@sanity/vision"]
+    }
+  },
+  "parts": [
+    {
+      "name": "part:@sanity/base/schema",
+      "path": "./schemas/schema.ts"
+    },
+    {
+      "name": "part:@sanity/desk-tool/structure",
+      "path": "./src/desk-structure.ts"
+    },
+    {
+      "implements": "part:@sanity/base/document-actions/resolver",
+      "path": "./src/resolve-document-actions.ts"
+    },
+    {
+      "implements": "part:@sanity/base/brand-logo",
+      "path": "./src/parts/logo.tsx"
+    },
+    {
+      "implements": "part:@sanity/form-builder/input/image/asset-sources",
+      "path": "./src/parts/asset-sources.ts"
+    },
+    {
+      "implements": "part:@sanity/dashboard/config",
+      "path": "./src/dashboard-config.ts"
+    },
+    {
+      "name": "part:@sanity/base/new-document-structure",
+      "path": "./src/new-document-structure.ts"
+    }
+  ]
+}
