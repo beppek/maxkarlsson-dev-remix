@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @font-face {
+  font-family: 'Chinoz';
+  src: url('/fonts/Chinoz-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chinoz';
+  src: url('/fonts/Chinoz-Italic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chinoz';
+  src: url('/fonts/Chinoz-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: bold;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Halfomania';
+  src: url('/fonts/Halfomania-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+html,
+body {
+  @apply font-body;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-heading;
+} */
