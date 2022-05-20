@@ -189,7 +189,7 @@ function SettingsWindow() {
   return open ? (
     <Window onClose={toggleSettingsWindow(false)} title="Preferences">
       <h2 className="text-lg">Change background image</h2>
-      <form className="relative" onSubmit={handleSave}>
+      <form className="relative my-4" onSubmit={handleSave}>
         <div className="sticky top-2 flex justify-end">
           <button
             type="submit"

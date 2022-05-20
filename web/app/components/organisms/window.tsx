@@ -26,7 +26,7 @@ export function Window({ children, onClose, title }: WindowProps) {
   useEffect(() => {
     const windowElement = document.getElementById(`${windowId}`);
     const scrollbarOffset =
-      (windowElement?.offsetWidth || 0) - (windowElement?.scrollWidth || 0);
+      (windowElement?.offsetWidth || 0) - (windowElement?.clientWidth || 0);
     setPosition({
       x:
         window.innerWidth / 2 -
@@ -102,19 +102,15 @@ export function Window({ children, onClose, title }: WindowProps) {
       className={`
         max-h-screen
         absolute
-        left-1/2
         backdrop-blur-md
         shadow-md 
         rounded-lg 
-        border-[1px] 
-        border-slate-600
-        bg-slate-600
         overflow-hidden
       `}
     >
       <div
         id={`${windowId}-bar`}
-        className="flex justify-between px-1 items-center bg-slate-600 text-white"
+        className="flex justify-between px-2 items-center bg-slate-600/75 backdrop-blur-med text-white"
       >
         <button
           aria-label="Close window button"
@@ -126,12 +122,18 @@ export function Window({ children, onClose, title }: WindowProps) {
       </div>
       <div
         className={`
+        border-slate-600
+          border-t-0
+          border-[1px] 
           overflow-y-auto
           max-h-[80vh]
           py-2 
           px-4
           bg-slate-100/75
           backdrop-blur-md 
+          rounded-t-none
+          rounded-lg
+          lg:px-8
         `}
       >
         {children}
