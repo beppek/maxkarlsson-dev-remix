@@ -14,12 +14,13 @@ export default {
       fieldsets: [
         { name: 'header', title: 'Header', options: { sortOrder: 10 } },
         { name: 'footer', title: 'Footer', options: { sortOrder: 20 } },
+        { name: 'desktop', title: 'Desktop', options: { sortOrder: 30 } },
         {
           name: 'cookieConsent',
           title: 'Cookie consent',
-          options: { sortOrder: 30 },
+          options: { sortOrder: 40 },
         },
-        { name: 'banner', title: 'Banner', options: { sortOrder: 40 } },
+        { name: 'banner', title: 'Banner', options: { sortOrder: 50 } },
       ],
       fields: [
         {
@@ -33,6 +34,12 @@ export default {
           title: 'Footer',
           type: 'footer',
           fieldset: 'footer',
+        },
+        {
+          name: 'desktopSettings',
+          title: 'Desktop Setting',
+          type: 'desktopSettings',
+          fieldset: 'desktop',
         },
         {
           name: 'cookieConsent',

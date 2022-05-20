@@ -12,6 +12,11 @@ export default {
       title: 'Title',
     },
     {
+      name: 'logo',
+      type: 'imageAlt',
+      title: 'Logo',
+    },
+    {
       title: 'Open graph',
       name: 'openGraph',
       description:

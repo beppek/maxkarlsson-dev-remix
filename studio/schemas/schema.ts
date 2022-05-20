@@ -57,6 +57,9 @@ import podcastSection from './objects/sections/podcast-section';
 import youtube from './objects/youtube';
 import hint from './objects/hint';
 import banner from './objects/banner';
+import pageLayout from './documents/page-layout';
+import desktopSettings from './objects/desktopSettings';
+import backgroundOption from './objects/backgroundOption';
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -75,9 +78,11 @@ export default createSchema({
     siteSettings,
     globalSiteLayout,
     redirect,
+    pageLayout,
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
     background,
+    backgroundOption,
     blockContent,
     blurb,
     cta,
@@ -85,6 +90,7 @@ export default createSchema({
     cookieConsent,
     cookiePreference,
     cookieDetails,
+    desktopSettings,
     listing,
     pageNav,
     text,

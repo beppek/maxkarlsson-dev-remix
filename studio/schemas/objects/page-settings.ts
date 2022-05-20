@@ -35,7 +35,7 @@ export default {
   ],
   fields: [
     {
-      title: 'Page Layout',
+      title: '[DEPRECATED]Page Layout',
       type: 'string',
       name: 'pageLayout',
       fieldset: 'display',
@@ -43,6 +43,13 @@ export default {
         list: pageLayouts,
       },
       initialValue: () => pageLayouts[0].value,
+    },
+    {
+      title: 'Page Layout',
+      name: 'dynamicPageLayout',
+      fieldset: 'display',
+      type: 'reference',
+      to: [{ type: 'pageLayout' }],
     },
     {
       title: 'Page Template',
