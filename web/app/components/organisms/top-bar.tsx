@@ -189,7 +189,16 @@ function SettingsWindow() {
   return open ? (
     <Window onClose={toggleSettingsWindow(false)} title="Preferences">
       <h2 className="text-lg">Change background image</h2>
-      <form onSubmit={handleSave}>
+      <form className="relative" onSubmit={handleSave}>
+        <div className="sticky top-2 flex justify-end">
+          <button
+            type="submit"
+            className="py-1 px-6 bg-green-500 text-white cursor-pointer rounded-full disabled:bg-gray-600 shadow-md"
+            disabled={!isDirty}
+          >
+            Save
+          </button>
+        </div>
         {backgroundOptions.map((backgroundOption: any) => (
           <div className="" key={backgroundOption._key}>
             <h3>{backgroundOption.name}</h3>
@@ -213,15 +222,6 @@ function SettingsWindow() {
             </div>
           </div>
         ))}
-        <div className="flex w-full justify-center mt-2">
-          <button
-            type="submit"
-            className="py-1 px-6 bg-green-500 text-white cursor-pointer rounded-full disabled:bg-gray-600"
-            disabled={!isDirty}
-          >
-            Save
-          </button>
-        </div>
       </form>
     </Window>
   ) : null;
