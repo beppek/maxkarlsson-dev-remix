@@ -62,6 +62,9 @@ module.exports = {
         avatar: '0px 0px 20px -5px rgba(0, 0, 0, 0.25)',
         glass:
           'inset 29.2667px -29.2667px 29.2667px rgba(100, 127, 171, 0.096), inset -29.2667px 29.2667px 29.2667px rgba(255, 255, 255, 0.096)',
+        retro: '5px 5px 0px rgba(0, 0, 0, 1)',
+        'retro-hover': '5px 5px 0px rgba(20, 20, 30, 1)',
+        'retro-active': '5px 5px 0px rgba(30, 30, 70, 1)',
       },
     },
   },
