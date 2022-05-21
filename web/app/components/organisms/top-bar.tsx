@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import { createContext, useCallback, useEffect, useState } from 'react';
 import { withContext } from '~/hoc/with-context';
 import { getUrlForImage } from '~/lib/sanity';
+import { SVG } from '../atoms/svg';
 import { Window } from './window';
 
 interface TopBarState {
@@ -119,17 +120,16 @@ function SettingsMenu() {
         transition-opacity 
         text-white 
         backdrop-blur-md 
-        bg-slate-600/25 
+        bg-slate-600/75 
         fixed 
         ${open ? 'block' : 'hidden'}
         ${open ? 'opacity-100' : 'opacity-0'}
         left-2 
         top-8 
         lg:top-6 
-        shadow-md 
-        rounded-lg 
-        border-[1px] 
-        border-slate-600
+        shadow-retro 
+        border-2 
+        border-slate-500
         z-20
       `}
       >
@@ -190,21 +190,23 @@ function SettingsWindow() {
     <Window onClose={toggleSettingsWindow(false)} title="Preferences">
       <h2 className="text-lg">Change background image</h2>
       <form className="relative my-4" onSubmit={handleSave}>
-        <div className="sticky top-2 flex justify-end">
+        <div className="sticky z-50 top-2 flex justify-end">
           <button
             type="submit"
-            className="py-1 px-6 bg-green-500 text-white cursor-pointer rounded-full disabled:bg-gray-600 shadow-md"
+            className="flex items-center gap-2 py-1 px-4 bg-green-500 text-white cursor-pointer disabled:bg-gray-600 shadow-retro hover:shadow-retro-hover active:shadow-retro-active"
             disabled={!isDirty}
           >
+            <SVG src="/icons/save-icon.svg" height={16} width={16} />
             Save
           </button>
         </div>
         {backgroundOptions.map((backgroundOption: any) => (
-          <div className="" key={backgroundOption._key}>
+          <div className="relative z-10" key={backgroundOption._key}>
             <h3>{backgroundOption.name}</h3>
             <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1 lg:gap-1">
               {backgroundOption.options.map((option: any) => (
                 <div
+                  className=""
                   onClick={() => handleSelectImage(option)}
                   key={option._key}
                 >
@@ -213,7 +215,7 @@ function SettingsWindow() {
                       selectedBackground._key === option._key
                         ? ' border-green-500 shadow-sm shadow-green-500/75 scale-105'
                         : 'border-transparent'
-                    } border-2 transition-all`}
+                    } border-2 transition-all h-[100px] w-[100px]`}
                     src={getUrlForImage(option).height(100).width(100).url()}
                     alt={option.asset.description}
                   />
@@ -240,7 +242,7 @@ export const TopBar = withContext(function TopBar() {
 
   return (
     <>
-      <div className="w-full text-white flex justify-between items-center bg-slate-800 px-2 h-8 lg:h-6">
+      <div className="w-full text-white flex justify-between items-center bg-slate-800 px-2 h-8 lg:h-6 border-b-2 border-b-slate-500">
         <button onClick={toggleMenu()} className="flex gap-2 items-center">
           <img alt="Max Karlsson" src={logoUrl} className="h-6 lg:h-4" />
           <p className="text-sm">{title}</p>

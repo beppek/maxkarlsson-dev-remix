@@ -31,6 +31,17 @@ export async function fetchLogo() {
   return res;
 }
 
+const href = `
+'href': select(
+  defined(anchorLink) && !defined(page) => anchorLink,
+  defined(anchorLink) => select(page->slug.current != 'index' => page->slug.current, '') + anchorLink,
+  linkType == 'internal' => select(
+    page->slug.current
+  ),
+  linkType == 'external' => link
+),
+`;
+
 export async function fetchLayout() {
   const res = await sanityClient.fetch(
     `*[_type == 'globalSiteLayout'][0] {
@@ -45,7 +56,21 @@ export async function fetchLayout() {
       'logo': tabs.header.logo{
         ...,
         asset->
-      }
+      },
+      'primaryNav': tabs.header.primaryNav->{
+        ...,
+        items[]{
+          ...,
+          'icon': icon.light{
+            ...,
+            asset->
+          },
+          'link': navItemAction{
+            ...,
+            ${href}
+          }
+        }
+      },
     }`,
   );
   return res;

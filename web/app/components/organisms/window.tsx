@@ -1,10 +1,12 @@
+import { useLocation, useNavigate } from '@remix-run/react';
 import type { ReactElement } from 'react';
 import { useMemo } from 'react';
 import { useCallback, useEffect, useState } from 'react';
+import { SVG } from '../atoms/svg';
 
 interface WindowProps {
   children: ReactElement | ReactElement[] | string;
-  onClose: () => void;
+  onClose?: () => void;
   title: string;
 }
 
@@ -23,10 +25,19 @@ export function Window({ children, onClose, title }: WindowProps) {
 
   const windowId = useMemo(() => generateWindowId(title), [title]);
 
+  // const location = useLocation();
+  // console.log('location :>> ', location);
+  const navigate = useNavigate();
+
   useEffect(() => {
     const windowElement = document.getElementById(`${windowId}`);
     const scrollbarOffset =
       (windowElement?.offsetWidth || 0) - (windowElement?.clientWidth || 0);
+
+    console.log(
+      'windowElement?.offsetHeight :>> ',
+      windowElement?.offsetHeight,
+    );
     setPosition({
       x:
         window.innerWidth / 2 -
@@ -100,39 +111,51 @@ export function Window({ children, onClose, title }: WindowProps) {
         left: position.x,
       }}
       className={`
+        z-10
+        shadow-retro
         max-h-screen
         absolute
         backdrop-blur-md
-        shadow-md 
-        rounded-lg 
         overflow-hidden
       `}
     >
       <div
         id={`${windowId}-bar`}
-        className="flex justify-between px-2 items-center bg-slate-600/75 backdrop-blur-med text-white"
+        className="grid grid-cols-3 px-2 items-center bg-slate-600/75 backdrop-blur-med text-white"
       >
-        <button
-          aria-label="Close window button"
-          id={`${windowId}-close-button`}
-          className="text-red-700 p-2 rounded-full bg-red-700"
-          onClick={onClose}
-        ></button>
-        <h3>{title}</h3>
+        <div className="flex justify-start">
+          <button
+            aria-label={onClose ? 'Close window button' : 'Back button'}
+            id={`${windowId}-close-button`}
+            className="text-red-700 p-2 lg:p-1 rounded-full bg-red-700 my-1"
+            onClick={onClose ? onClose : () => navigate(-1)}
+          >
+            <SVG
+              src={onClose ? '/icons/close-icon.svg' : '/icons/back-icon.svg'}
+              height={15}
+              width={15}
+            />
+          </button>
+        </div>
+        <div className="flex justify-center">
+          <div className="border-b-2 border-double border-white w-20 " />
+        </div>
+        <div className="flex justify-end">
+          <h3>{title}</h3>
+        </div>
       </div>
       <div
         className={`
-        border-slate-600
+        border-slate-300
           border-t-0
-          border-[1px] 
+          border-2 
           overflow-y-auto
-          max-h-[80vh]
+          max-h-[85vh]
           py-2 
           px-4
           bg-slate-100/75
           backdrop-blur-md 
           rounded-t-none
-          rounded-lg
           lg:px-8
         `}
       >
