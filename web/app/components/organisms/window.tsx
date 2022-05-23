@@ -42,7 +42,7 @@ export function Window({ children, onClose, title }: WindowProps) {
       x:
         window.innerWidth / 2 -
         ((windowElement?.offsetWidth || 2) + scrollbarOffset * 4) / 2,
-      y: window.innerHeight / 2 - (windowElement?.offsetHeight || 2) / 2,
+      y: window.innerHeight / 2 - (windowElement?.offsetHeight || 2) / 2 - 40,
     });
   }, [windowId]);
 
@@ -117,6 +117,8 @@ export function Window({ children, onClose, title }: WindowProps) {
         absolute
         backdrop-blur-md
         overflow-hidden
+        border-teal-500
+        border-2 
       `}
     >
       <div
@@ -146,16 +148,13 @@ export function Window({ children, onClose, title }: WindowProps) {
       </div>
       <div
         className={`
-        border-slate-300
-          border-t-0
-          border-2 
           overflow-y-auto
           max-h-[85vh]
+          lg:max-h-[80vh]
           py-2 
           px-4
-          bg-slate-100/75
+          bg-white/75
           backdrop-blur-md 
-          rounded-t-none
           lg:px-8
         `}
       >
