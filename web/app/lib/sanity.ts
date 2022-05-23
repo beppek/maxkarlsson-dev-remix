@@ -90,3 +90,79 @@ export async function fetchBackgroundOptions() {
   );
   return res;
 }
+
+export async function fetchBlogPost({ slug }: { slug: string }) {
+  const res = await sanityClient.fetch(
+    `*[_type == 'post' && slug.current == $slug][] {
+      'id': _id,
+      _updatedAt,
+      title,
+      publishedAt,
+      openGraph{
+        ...
+      },  
+      body[]{
+        ...,
+        _type == "imageAlt" => {
+          ...,
+          asset->,
+        },
+        _type == "hint" => {
+          ...,
+          variant,
+          content,
+        },
+        markDefs[]{
+          ...,
+          _type == "internalLink" => {
+            ...,
+            "slug": @.reference->slug,
+            "refType": @.reference->_type,
+          }
+        }
+      },
+      excerpt,
+      'plainTextExcerpt': pt::text(excerpt),
+      'slug': slug.current,
+      categories[]->{
+        ...,
+        'id': _id,
+        'slug': slug.current
+      },
+      tags,
+      mainImage{
+        ...,
+        asset->{...}
+      },
+      'author': author->{name, 'picture': picture.asset->url}
+    }`,
+    { slug },
+  );
+  return res;
+}
+
+export async function fetchAllBlogPosts() {
+  const res = await sanityClient.fetch(
+    `*[_type == 'post' && dateTime(publishedAt) <= dateTime(now())] | order(publishedAt desc)[] {
+      'id': _id,
+      _updatedAt,
+      title,
+      shortTitle,
+      publishedAt,  
+      excerpt,
+      'slug': slug.current,
+      categories[]->{
+        ...,
+        'id': _id,
+        'slug': slug.current
+      },
+      tags,
+      mainImage{
+        ...,
+        asset->{...}
+      },
+      'author': author->{name, 'picture': picture.asset->url}
+    }`,
+  );
+  return res;
+}
