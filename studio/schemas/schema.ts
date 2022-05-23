@@ -60,6 +60,7 @@ import banner from './objects/banner';
 import pageLayout from './documents/page-layout';
 import desktopSettings from './objects/desktopSettings';
 import backgroundOption from './objects/backgroundOption';
+import groqQueries from './documents/groq-queries';
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -79,6 +80,7 @@ export default createSchema({
     globalSiteLayout,
     redirect,
     pageLayout,
+    groqQueries,
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
     background,
