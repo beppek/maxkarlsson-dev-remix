@@ -26,6 +26,11 @@ export default {
       // fieldset: 'content',
     },
     {
+      name: 'shortTitle',
+      title: 'Short Title',
+      type: 'string',
+    },
+    {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
