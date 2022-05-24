@@ -17,11 +17,10 @@ module.exports = {
         '13xl': '50rem',
         mega: '70rem',
       },
-      // fontFamily: {
-      //   heading: ['Halfomania', 'sans-serif'],
-      //   body: ['Chinoz', 'sans-serif'],
-      //   cta: ['Halfomania', 'sans-serif'],
-      // },
+      fontFamily: {
+        heading: ['"Press Start 2P"', 'sans-serif'],
+        inlineCode: ['"Fira Sans"', 'sans-serif'],
+      },
       backgroundImage: (theme) => ({
         noise: "url('/images/noise.png')",
       }),

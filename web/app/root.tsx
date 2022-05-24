@@ -18,7 +18,14 @@ export const meta: MetaFunction = () => ({
 });
 
 export function links() {
-  return [{ rel: 'stylesheet', href: styles }];
+  return [
+    { rel: 'stylesheet', href: styles },
+    { rel: 'preconnect', href: 'https://cdn.sanity.io' },
+    {
+      rel: 'stylesheet',
+      href: 'https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fira+Sans&display=swap',
+    },
+  ];
 }
 
 export async function loader() {
