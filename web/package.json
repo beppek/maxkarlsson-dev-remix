@@ -18,13 +18,17 @@
     "@remix-run/cloudflare": "^1.4.3",
     "@remix-run/cloudflare-pages": "^1.4.3",
     "@remix-run/react": "^1.4.3",
+    "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/image-url": "^1.0.1",
     "cross-env": "^7.0.3",
     "date-fns": "^2.28.0",
+    "get-youtube-id": "^1.0.1",
     "picosanity": "^4.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-inlinesvg": "^3.0.0"
+    "react-inlinesvg": "^3.0.0",
+    "react-refractor": "^2.1.7",
+    "react-youtube": "^9.0.1"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^3.10.0",
@@ -32,6 +36,7 @@
     "@remix-run/eslint-config": "^1.4.3",
     "@types/react": "^17.0.45",
     "@types/react-dom": "^17.0.17",
+    "@types/refractor": "^3.0.2",
     "autoprefixer": "^10.4.7",
     "concurrently": "^7.2.0",
     "eslint": "^8.15.0",
