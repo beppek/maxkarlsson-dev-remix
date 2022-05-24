@@ -80,7 +80,7 @@ function Time() {
     };
   }, []);
 
-  return <p className="text-xs">{time}</p>;
+  return <p className="text-xs font-inlineCode">{time}</p>;
 }
 
 function SettingsMenu() {
@@ -133,14 +133,14 @@ function SettingsMenu() {
         z-20
       `}
       >
-        <ul>
-          <li>
+        <ul className="font-heading text-xs">
+          <li className="py-2 hover:text-green-300">
             <button>Dark mode</button>
           </li>
-          <li>
-            <button onClick={handleToggleSettingsWindow}>Settings</button>
+          <li className="py-2 hover:text-green-300">
+            <button onClick={handleToggleSettingsWindow}>Preferences</button>
           </li>
-          <li>
+          <li className="py-2 hover:text-green-300">
             <button>About</button>
           </li>
         </ul>
@@ -188,43 +188,45 @@ function SettingsWindow() {
 
   return open ? (
     <Window onClose={toggleSettingsWindow(false)} title="Preferences">
-      <h2 className="text-lg">Change background image</h2>
-      <form className="relative my-4" onSubmit={handleSave}>
-        <div className="sticky z-50 top-2 flex justify-end">
-          <button
-            type="submit"
-            className="flex items-center gap-2 py-1 px-4 bg-green-500 text-white cursor-pointer disabled:bg-gray-600 shadow-retro hover:shadow-retro-hover active:shadow-retro-active"
-            disabled={!isDirty}
-          >
-            <SVG src="/icons/save-icon.svg" height={16} width={16} />
-            Save
-          </button>
-        </div>
-        {backgroundOptions.map((backgroundOption: any) => (
-          <div className="relative z-10" key={backgroundOption._key}>
-            <h3>{backgroundOption.name}</h3>
-            <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1 lg:gap-1">
-              {backgroundOption.options.map((option: any) => (
-                <div
-                  className=""
-                  onClick={() => handleSelectImage(option)}
-                  key={option._key}
-                >
-                  <img
-                    className={`${
-                      selectedBackground._key === option._key
-                        ? ' border-green-500 shadow-sm shadow-green-500/75 scale-105'
-                        : 'border-transparent'
-                    } border-2 transition-all h-[100px] w-[100px]`}
-                    src={getUrlForImage(option).height(100).width(100).url()}
-                    alt={option.asset.description}
-                  />
-                </div>
-              ))}
-            </div>
+      <div className="py-2 px-4 lg:px-8">
+        <h2 className="text-lg">Change background image</h2>
+        <form className="relative my-4" onSubmit={handleSave}>
+          <div className="sticky z-50 top-2 flex justify-end">
+            <button
+              type="submit"
+              className="flex items-center gap-2 py-1 px-4 bg-green-500 text-white cursor-pointer disabled:bg-gray-600 shadow-retro hover:shadow-retro-hover active:shadow-retro-active text-sm font-heading"
+              disabled={!isDirty}
+            >
+              <SVG src="/icons/save-icon.svg" height={20} width={20} />
+              Save
+            </button>
           </div>
-        ))}
-      </form>
+          {backgroundOptions.map((backgroundOption: any) => (
+            <div className="relative z-10" key={backgroundOption._key}>
+              <h3>{backgroundOption.name}</h3>
+              <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1 lg:gap-1">
+                {backgroundOption.options.map((option: any) => (
+                  <div
+                    className=""
+                    onClick={() => handleSelectImage(option)}
+                    key={option._key}
+                  >
+                    <img
+                      className={`${
+                        selectedBackground._key === option._key
+                          ? ' border-green-500 shadow-sm shadow-green-500/75 scale-105'
+                          : 'border-transparent'
+                      } border-2 transition-all h-[100px] w-[100px]`}
+                      src={getUrlForImage(option).height(100).width(100).url()}
+                      alt={option.asset.description}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </form>
+      </div>
     </Window>
   ) : null;
 }
@@ -245,7 +247,7 @@ export const TopBar = withContext(function TopBar() {
       <div className="w-full text-white flex justify-between items-center bg-slate-800 px-2 h-8 lg:h-6 border-b-2 border-b-slate-500">
         <button onClick={toggleMenu()} className="flex gap-2 items-center">
           <img alt="Max Karlsson" src={logoUrl} className="h-6 lg:h-4" />
-          <p className="text-sm">{title}</p>
+          <p className="text-xs font-heading">{title}</p>
         </button>
         <Time />
       </div>
