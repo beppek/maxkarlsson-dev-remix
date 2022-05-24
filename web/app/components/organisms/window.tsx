@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from '@remix-run/react';
+import { useNavigate } from '@remix-run/react';
 import type { ReactElement } from 'react';
 import { useMemo } from 'react';
 import { useCallback, useEffect, useState } from 'react';
@@ -25,8 +25,6 @@ export function Window({ children, onClose, title }: WindowProps) {
 
   const windowId = useMemo(() => generateWindowId(title), [title]);
 
-  // const location = useLocation();
-  // console.log('location :>> ', location);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,7 +40,7 @@ export function Window({ children, onClose, title }: WindowProps) {
       x:
         window.innerWidth / 2 -
         ((windowElement?.offsetWidth || 2) + scrollbarOffset * 4) / 2,
-      y: window.innerHeight / 2 - (windowElement?.offsetHeight || 2) / 2 - 40,
+      y: window.innerHeight / 2 - (windowElement?.offsetHeight || 2) / 2 - 20,
     });
   }, [windowId]);
 
@@ -119,6 +117,9 @@ export function Window({ children, onClose, title }: WindowProps) {
         overflow-hidden
         border-teal-500
         border-2 
+        max-w-full
+        lg:max-w-screen-lg
+        2xl:max-w-screen-xl
       `}
     >
       <div
@@ -143,19 +144,16 @@ export function Window({ children, onClose, title }: WindowProps) {
           <div className="border-b-2 border-double border-white w-20 " />
         </div>
         <div className="flex justify-end">
-          <h3>{title}</h3>
+          <h3 className="font-heading text-xs truncate">{title}</h3>
         </div>
       </div>
       <div
         className={`
           overflow-y-auto
-          max-h-[85vh]
+          max-h-[70vh]
           lg:max-h-[80vh]
-          py-2 
-          px-4
           bg-white/75
           backdrop-blur-md 
-          lg:px-8
         `}
       >
         {children}
