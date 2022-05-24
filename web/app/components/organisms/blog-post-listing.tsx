@@ -13,13 +13,15 @@ export function BlogPostListing({ post }: Props) {
         borderColor: post.mainImage.asset.metadata.palette.dominant.background,
       }}
       to={`/blog/${post.slug}`}
-      className="w-[150px] lg:w-[200px] h-[300px] border-2 hover:border-teal-500"
+      className="w-[200px] lg:w-[250px] h-[350px] border-2 hover:border-teal-500 hover:scale-105 transition-all hover:shadow-retro"
     >
       <img
-        src={getUrlForImage(post.mainImage).width(200).height(200).url()}
+        src={getUrlForImage(post.mainImage).width(250).height(250).url()}
         alt={post.mainImage.alt}
       />
-      <h3 className="p-1">{post.shortTitle || post.title}</h3>
+      <h3 className="p-1 font-heading text-xs">
+        {post.shortTitle || post.title}
+      </h3>
     </Link>
   );
 }
