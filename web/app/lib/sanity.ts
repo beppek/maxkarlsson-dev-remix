@@ -93,7 +93,7 @@ export async function fetchBackgroundOptions() {
 
 export async function fetchBlogPost({ slug }: { slug: string }) {
   const res = await sanityClient.fetch(
-    `*[_type == 'post' && slug.current == $slug][] {
+    `*[_type == 'post' && slug.current == $slug][0] {
       'id': _id,
       _updatedAt,
       title,
