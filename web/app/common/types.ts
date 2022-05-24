@@ -105,4 +105,6 @@ export interface Post extends CMSContentBase {
   mainImage: CMSImage;
   openGraph: CMSOpenGraph;
   categories: Category[];
+  relatedPosts: Post[];
+  latestPosts: Post[];
 }

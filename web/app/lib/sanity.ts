@@ -42,6 +42,27 @@ const href = `
 ),
 `;
 
+const listingPostFragment = `
+  'id': _id,
+  _updatedAt,
+  title,
+  shortTitle,
+  publishedAt,  
+  excerpt,
+  'slug': slug.current,
+  categories[]->{
+    ...,
+    'id': _id,
+    'slug': slug.current
+  },
+  tags,
+  mainImage{
+    ...,
+    asset->{...}
+  },
+  'author': author->{name, 'picture': picture.asset->url},
+`;
+
 export async function fetchLayout() {
   const res = await sanityClient.fetch(
     `*[_type == 'globalSiteLayout'][0] {
@@ -134,7 +155,13 @@ export async function fetchBlogPost({ slug }: { slug: string }) {
         ...,
         asset->{...}
       },
-      'author': author->{name, 'picture': picture.asset->url}
+      'author': author->{name, 'picture': picture.asset->url},
+      'relatedPosts': *[_type == 'post' && @.slug.current != $slug && references(*[_id in ^.categories[]->_id]._id) && dateTime(@.publishedAt) <= dateTime(now())] | order(publishedAt desc)[0..5] {
+        ${listingPostFragment}
+      },
+      'latestPosts': *[_type == 'post' && @.slug.current != $slug && dateTime(@.publishedAt) <= dateTime(now())] | order(publishedAt desc)[0..5] {
+        ${listingPostFragment}
+      },
     }`,
     { slug },
   );
@@ -144,24 +171,7 @@ export async function fetchBlogPost({ slug }: { slug: string }) {
 export async function fetchAllBlogPosts() {
   const res = await sanityClient.fetch(
     `*[_type == 'post' && dateTime(publishedAt) <= dateTime(now())] | order(publishedAt desc)[] {
-      'id': _id,
-      _updatedAt,
-      title,
-      shortTitle,
-      publishedAt,  
-      excerpt,
-      'slug': slug.current,
-      categories[]->{
-        ...,
-        'id': _id,
-        'slug': slug.current
-      },
-      tags,
-      mainImage{
-        ...,
-        asset->{...}
-      },
-      'author': author->{name, 'picture': picture.asset->url}
+      ${listingPostFragment}
     }`,
   );
   return res;
