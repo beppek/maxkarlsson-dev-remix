@@ -4,6 +4,7 @@ import { getUrlForImage } from '~/lib/sanity';
 import { TopBar } from '../organisms/top-bar';
 
 import type { ReactElement } from 'react';
+import { WindowProvider } from '~/state/window-context';
 
 interface LayoutProps {
   children: ReactElement | ReactElement[];
@@ -57,6 +58,7 @@ export function Layout({ children }: LayoutProps) {
       }}
       className={`bg-slate-400 h-screen bg-no-repeat bg-fit bg-center`}
     >
+      <WindowProvider>
       <TopBar />
       <main className="overflow-y-auto">{children}</main>
       <nav className="fixed z-0 bottom-0 lg:bottom-2 flex justify-center w-full">
@@ -95,6 +97,7 @@ export function Layout({ children }: LayoutProps) {
           ))}
         </ul>
       </nav>
+      </WindowProvider>
     </div>
   );
 }

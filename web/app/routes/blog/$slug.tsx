@@ -14,6 +14,10 @@ export async function loader({ params }) {
   };
 }
 
+export function links() {
+  return [{ rel: 'stylesheet', href: '/assets/prism.css' }];
+}
+
 export default function BlogPostPage() {
   const { post }: { post: Post } = useLoaderData();
   return (

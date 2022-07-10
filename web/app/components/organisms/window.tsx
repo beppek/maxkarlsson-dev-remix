@@ -1,7 +1,9 @@
 import { useNavigate } from '@remix-run/react';
-import type { ReactElement } from 'react';
+import type { ReactElement} from 'react';
+import { useContext } from 'react';
 import { useMemo } from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
+import { WindowContext } from '~/state/window-context';
 import { SVG } from '../atoms/svg';
 
 interface WindowProps {
@@ -18,71 +20,135 @@ function generateWindowId(windowTitle: string) {
   return hash | 0;
 }
 
+interface Coordinates {
+  x: number;
+  y: number;
+}
+
+interface State {
+  position: Coordinates;
+  isDragging: boolean;
+  zIndex: number;
+}
+
+enum Actions {
+  setPosition = 'setPosition',
+  setIsDragging = 'setIsDragging',
+  setZIndex = 'setZIndex',
+}
+
+type Payload = Coordinates | boolean | number;
+
+interface Action {
+  type: Actions;
+  payload: Payload;
+}
+
+type ActionFunction = (state: State, payload: Payload) => State;
+
+const actions: Record<Actions, ActionFunction> = {
+  setPosition: (state: State, payload: Payload) => {
+    return {
+      ...state,
+      position: payload as Coordinates,
+    };
+  },
+  setIsDragging: (state: State, payload: Payload) => {
+    return {
+      ...state,
+      isDragging: payload as boolean,
+    };
+  },
+  setZIndex: (state: State, payload: Payload) => {
+    return {
+      ...state,
+      zIndex: (payload as number) + 10,
+    };
+  }
+}
+
+const clickPosition = { x: 30, y: 30 }
+
+const initialState = {
+  position: { x: 30, y: 30 },
+  isDragging: false,
+  zIndex: 10,
+}
+
+function reducer(state: State, action: Action) {
+  return actions[action.type](state, action.payload);
+}
+
 export function Window({ children, onClose, title }: WindowProps) {
-  const [clickPosition, setClickPosition] = useState({ x: 30, y: 30 });
-  const [position, setPosition] = useState({ x: 30, y: 30 });
-  const [isDragging, setIsDragging] = useState(false);
+  const { state: {openWindows}, actions: {handleOpenWindow, handleSelectWindow, findWindowIndex, handleCloseWindow}} = useContext(WindowContext);
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   const windowId = useMemo(() => generateWindowId(title), [title]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
+    const newZIndex = findWindowIndex(windowId);
+    dispatch({ type: Actions.setZIndex, payload: newZIndex });
+  }, [findWindowIndex, openWindows.length, windowId])
+
+  useEffect(() => {
     const windowElement = document.getElementById(`${windowId}`);
     const scrollbarOffset =
       (windowElement?.offsetWidth || 0) - (windowElement?.clientWidth || 0);
 
-    console.log(
-      'windowElement?.offsetHeight :>> ',
-      windowElement?.offsetHeight,
-    );
-    setPosition({
+    const newZIndex = handleOpenWindow(windowId)
+    dispatch({ type: Actions.setZIndex, payload: newZIndex });
+    dispatch({type: Actions.setPosition, payload: {
       x:
         window.innerWidth / 2 -
         ((windowElement?.offsetWidth || 2) + scrollbarOffset * 4) / 2,
       y: window.innerHeight / 2 - (windowElement?.offsetHeight || 2) / 2 - 20,
-    });
+    }});
+  // disable exhaustive deps because it causes infinite loop
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [windowId]);
 
   const onMouseMove = useCallback(
     (e: any) => {
-      if (isDragging) {
-        setPosition({
+      if (state.isDragging) {
+        dispatch({type: Actions.setPosition, payload: {
           x: e.clientX - clickPosition.x,
           y: e.clientY - clickPosition.y,
-        });
+        }});
       }
     },
-    [clickPosition, isDragging],
+    [state.isDragging],
   );
 
   const onMouseDown = useCallback(
     (e: any) => {
+      e.stopPropagation()
+      console.log('windowId :>> ', windowId);
       if (e.target.id === `${windowId}-close-button`) return;
       if (e.target?.id === `${windowId}-bar`) {
-        setIsDragging(true);
+        dispatch({type: Actions.setIsDragging, payload: true})
         const dragElement = e.target.parentNode;
-        setClickPosition({
-          x: e.clientX - dragElement.offsetLeft,
-          y: e.clientY - dragElement.offsetTop,
-        });
+        clickPosition.x = e.clientX - dragElement.offsetLeft;
+        clickPosition.y = e.clientY - dragElement.offsetTop;
       } else if (e.target.parentNode.id === `${windowId}-bar`) {
-        setIsDragging(true);
+        dispatch({type: Actions.setIsDragging, payload: true});
         const dragElement = e.target.parentNode.parentNode;
-        setClickPosition({
-          x: e.clientX - dragElement.offsetLeft,
-          y: e.clientY - dragElement.offsetTop,
-        });
+        clickPosition.x = e.clientX - dragElement.offsetLeft;
+        clickPosition.y = e.clientY - dragElement.offsetTop;
       }
+      console.log('e.target :>> ', e.target);
+      const newZIndex = handleSelectWindow(windowId);
+      dispatch({ type: Actions.setZIndex, payload: newZIndex });
     },
-    [windowId],
+    [windowId, handleSelectWindow],
   );
 
   const onMouseUp = useCallback(() => {
-    if (isDragging) {
-      setIsDragging(false);
+    if (state.isDragging) {
+      dispatch({type: Actions.setIsDragging, payload: false});
     }
-  }, [isDragging]);
+  }, [state.isDragging]);
 
   const addEventListeners = useCallback(() => {
     document.addEventListener('mousemove', onMouseMove);
@@ -101,15 +167,21 @@ export function Window({ children, onClose, title }: WindowProps) {
     return () => removeEventListeners();
   }, [addEventListeners, removeEventListeners]);
 
+  const handleClickClose = useCallback(() => {
+    handleCloseWindow(windowId);
+    if (onClose) onClose();
+    else navigate(-1);
+  }, [onClose, windowId, handleCloseWindow, navigate]);
+
   return (
     <div
       id={`${windowId}`}
       style={{
-        top: position.y,
-        left: position.x,
+        top: state.position.y,
+        left: state.position.x,
+        zIndex: state.zIndex,
       }}
       className={`
-        z-10
         shadow-retro
         max-h-screen
         absolute
@@ -131,7 +203,7 @@ export function Window({ children, onClose, title }: WindowProps) {
             aria-label={onClose ? 'Close window button' : 'Back button'}
             id={`${windowId}-close-button`}
             className="text-red-700 p-2 lg:p-1 rounded-full bg-red-700 my-1"
-            onClick={onClose ? onClose : () => navigate(-1)}
+            onClick={handleClickClose}
           >
             <SVG
               src={onClose ? '/icons/close-icon.svg' : '/icons/back-icon.svg'}
