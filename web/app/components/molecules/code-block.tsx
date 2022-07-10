@@ -44,9 +44,11 @@ export function CodeBlock({
 }: CodeBlockProps) {
   // @ts-ignore
   const lang = languageMapper[language] || language;
+  console.log('colors :>> ', colors);
+  console.log('lang :>> ', lang);
   return (
     <div
-      className="overflow-x-scroll prose prose-pre:rounded-none max-w-full"
+      className={`overflow-x-scroll prose prose-pre:rounded-none max-w-full`}
       // style={{
       //   p: {
       //     m: '0',
