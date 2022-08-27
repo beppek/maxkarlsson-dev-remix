@@ -7,8 +7,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
-import { Layout } from './components/templates/layout';
-import { fetchLayout } from './lib/sanity';
+import { Layout } from '~/components/templates/layout';
+import { fetchLayout } from '~/lib/sanity';
 import styles from './tailwind.css';
 
 export const meta: MetaFunction = () => ({

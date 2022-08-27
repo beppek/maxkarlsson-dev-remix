@@ -1243,10 +1243,6 @@ video {
   margin-top: auto;
 }
 
-.-mt-20 {
-  margin-top: -5rem;
-}
-
 .block {
   display: block;
 }
@@ -2043,10 +2039,6 @@ h6 {
 
   .lg\:pt-10 {
     padding-top: 2.5rem;
-  }
-
-  .lg\:pt-16 {
-    padding-top: 4rem;
   }
 
   .lg\:text-8xl {

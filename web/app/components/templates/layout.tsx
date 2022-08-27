@@ -1,86 +1,47 @@
-import { Link, NavLink, useLoaderData } from '@remix-run/react';
-import { useCallback, useEffect, useState } from 'react';
+import { NavLink, useLoaderData } from '@remix-run/react';
 import { getUrlForImage } from '~/lib/sanity';
-import { TopBar } from '../organisms/top-bar';
 
 import type { ReactElement } from 'react';
-import { WindowProvider } from '~/state/window-context';
+import { SVG } from '../atoms/svg';
+import { usePrefersDarkMode } from '~/hooks/use-prefers-dark-mode';
 
 interface LayoutProps {
   children: ReactElement | ReactElement[];
 }
 
 export function Layout({ children }: LayoutProps) {
-  const [backgroundImage, setBackgroundImage] = useState('');
   const {
-    layout: { backgroundOptions, primaryNav },
+    layout: { primaryNav },
   } = useLoaderData();
 
-  console.log('primaryNav :>> ', primaryNav);
-
-  useEffect(() => {
-    const lsImage = localStorage.getItem('backgroundImage');
-
-    const bgImage = lsImage
-      ? getUrlForImage(JSON.parse(lsImage))
-          .height(window.innerHeight)
-          .width(window.innerWidth)
-          .url()
-      : getUrlForImage(backgroundOptions[0].options[0])
-          .height(window.innerHeight)
-          .width(window.innerWidth)
-          .url();
-    setBackgroundImage(bgImage);
-  }, [backgroundOptions]);
-
-  const handleLocalStorageChanges = useCallback(() => {
-    const lsImage = localStorage.getItem('backgroundImage');
-    const bgImage = lsImage
-      ? getUrlForImage(JSON.parse(lsImage))
-          .height(window.innerHeight)
-          .width(window.innerWidth)
-          .url()
-      : backgroundImage;
-    setBackgroundImage(bgImage);
-  }, [backgroundImage]);
-
-  useEffect(() => {
-    window.addEventListener('storage', handleLocalStorageChanges, false);
-    return () => {
-      window.removeEventListener('storage', handleLocalStorageChanges, false);
-    };
-  }, [handleLocalStorageChanges]);
+  const { prefersDarkMode, togglePrefersDarkMode } = usePrefersDarkMode();
 
   return (
     <div
-      style={{
-        backgroundImage: `url(${backgroundImage})`,
-      }}
-      className={`bg-slate-400 h-screen bg-no-repeat bg-fit bg-center`}
+      className={`bg-white dark:bg-black h-screen flex flex-col min-h-screen`}
     >
-      <WindowProvider>
-      <TopBar />
-      <main className="overflow-y-auto">{children}</main>
-      <nav className="fixed z-0 bottom-0 lg:bottom-2 flex justify-center w-full">
-        <ul className="flex justify-center px-4 lg:px-6 py-1 bg-slate-100/75 backdrop-blur-lg shadow-md lg:shadow-retro">
+      <nav className="fixed z-0 top-0 lg:top-2 flex justify-center w-full">
+        <ul className="flex justify-center px-4 lg:px-6 py-1 border-green-500 border-2 border-dashed">
           {primaryNav?.items.map((item: any) => (
             <li key={item._key}>
               <NavLink
                 className={({ isActive }) => {
-                  console.log('item.text :>> ', item.text);
-                  console.log('isActive :>> ', isActive);
                   return `
                     flex 
                     flex-col 
                     items-center 
                     hover:scale-110 
                     transition-all 
-                    hover:bg-slate-300/75 
+                    hover:bg-slate-200/75 
+                    dark:hover:bg-slate-900/75 
                     py-0
                     lg:py-2 
                     px-6
                     text-sm
                     lg:text-md
+                    text-black
+                    dark:text-white
+                    font-heading
                     ${isActive ? 'bg-slate-200/50' : ''}
                   `;
                 }}
@@ -91,13 +52,46 @@ export function Layout({ children }: LayoutProps) {
                   src={getUrlForImage(item.icon).width(50).height(50).url()}
                   alt={item.icon.alt}
                 />
-                {item.text}
+                <span className="lg:pt-2">{item.text}</span>
               </NavLink>
             </li>
           ))}
+          <li>
+            <button
+              className={`
+              flex 
+              flex-col 
+              items-center 
+              hover:scale-110 
+              transition-all 
+              hover:bg-slate-200/75 
+              dark:hover:bg-slate-900/75 
+              py-0
+              lg:py-2 
+              px-6
+              text-sm
+              lg:text-md
+              text-black
+              dark:text-white
+              font-heading`}
+              onClick={togglePrefersDarkMode}
+            >
+              <SVG
+                fill={prefersDarkMode ? 'white' : 'black'}
+                className="w-6 h-6 lg:w-10 lg:h-10"
+                src={'/icons/toggle-theme.svg'}
+              />
+              Toggle
+            </button>
+          </li>
         </ul>
       </nav>
-      </WindowProvider>
+      <main className="overflow-y-auto h-full pt-20 lg:pt-48">{children}</main>
+      <footer className="mt-auto py-2 lg:py-10">
+        <p className="text-slate-600 dark:text-slate-400 text-center font-heading text-xs">
+          <>© Copyright {new Date().getFullYear()} Max Karlsson</>
+        </p>
+      </footer>
     </div>
   );
 }

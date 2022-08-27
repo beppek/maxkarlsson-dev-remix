@@ -1243,10 +1243,6 @@ video {
   margin-top: auto;
 }
 
-.-mt-20 {
-  margin-top: -5rem;
-}
-
 .block {
   display: block;
 }
@@ -1297,10 +1293,6 @@ video {
 
 .h-20 {
   height: 5rem;
-}
-
-.h-full {
-  height: 100%;
 }
 
 .max-h-screen {
@@ -1363,10 +1355,6 @@ video {
 
 .flex-col {
   flex-direction: column;
-}
-
-.content-center {
-  align-content: center;
 }
 
 .items-center {
@@ -2045,17 +2033,8 @@ h6 {
     padding-top: 2.5rem;
   }
 
-  .lg\:pt-16 {
-    padding-top: 4rem;
-  }
-
   .lg\:text-8xl {
     font-size: 10rem;
-  }
-
-  .lg\:text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
   }
 }
 
