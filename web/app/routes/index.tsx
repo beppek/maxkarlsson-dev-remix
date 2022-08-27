@@ -25,7 +25,7 @@ export default function Index() {
       className="flex items-center h-full"
       style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}
     >
-      <div className="flex-col items-center w-full -pt-20 lg:-pt-48 -mt-20">
+      <div className="flex-col items-center w-full -pt-20 lg:-pt-24 -mt-20 lg:mt-0">
         <h1 className="font-heading uppercase text-center font-extrabold">
           <span className="text-transparent text-2xl lg:text-8xl bg-clip-text bg-gradient-to-r from-green-400 via-purple-500 to-blue-500">
             {title}

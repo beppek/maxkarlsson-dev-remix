@@ -20,8 +20,8 @@ export function Layout({ children }: LayoutProps) {
     <div
       className={`bg-white dark:bg-black h-screen flex flex-col min-h-screen`}
     >
-      <nav className="fixed z-0 top-0 lg:top-2 flex justify-center w-full">
-        <ul className="flex justify-center px-4 lg:px-6 py-1 border-green-500 border-2 border-dashed">
+      <nav className="fixed z-10 top-0 lg:top-2 flex justify-center w-full">
+        <ul className="flex justify-center py-1 border-green-500 border-2 border-dashed bg-white dark:bg-black">
           {primaryNav?.items.map((item: any) => (
             <li key={item._key}>
               <NavLink
@@ -42,7 +42,7 @@ export function Layout({ children }: LayoutProps) {
                     text-black
                     dark:text-white
                     font-heading
-                    ${isActive ? 'bg-slate-200/50' : ''}
+                    ${isActive ? 'bg-slate-200/50 dark:bg-slate-700/50' : ''}
                   `;
                 }}
                 to={`/${item.link.href}`}
@@ -86,7 +86,7 @@ export function Layout({ children }: LayoutProps) {
           </li>
         </ul>
       </nav>
-      <main className="overflow-y-auto h-full pt-20 lg:pt-48">{children}</main>
+      <main className="overflow-y-auto h-full pt-20 lg:pt-24">{children}</main>
       <footer className="mt-auto py-2 lg:py-10">
         <p className="text-slate-600 dark:text-slate-400 text-center font-heading text-xs">
           <>© Copyright {new Date().getFullYear()} Max Karlsson</>

@@ -21,15 +21,15 @@ export default function Blog() {
   console.log('posts :>> ', posts);
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
-      <Window title="Blog posts">
-        <div className="flex justify-center py-2  px-4 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 gap-3 lg:gap-6 my-2 lg:my-5">
-            {posts.map((post: Post) => (
-              <BlogPostListing key={post.id} post={post} />
-            ))}
-          </div>
+      {/* <Window title="Blog posts"> */}
+      <div className="flex justify-center py-2  px-4 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 gap-3 lg:gap-6 my-2 lg:my-5">
+          {posts.map((post: Post) => (
+            <BlogPostListing key={post.id} post={post} />
+          ))}
         </div>
-      </Window>
+      </div>
+      {/* </Window> */}
     </div>
   );
 }
