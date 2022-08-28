@@ -1543,10 +1543,6 @@ video {
   overflow: hidden;
 }
 
-.overflow-clip {
-  overflow: clip;
-}
-
 .overflow-y-auto {
   overflow-y: auto;
 }
@@ -3039,11 +3035,6 @@ h6 {
 
 .prose-headings\:font-heading :is(:where(h1, h2, h3, h4, h5, h6, th):not(:where([class~="not-prose"] *))) {
   font-family: "Press Start 2P", sans-serif;
-}
-
-.prose-headings\:text-pink-400 :is(:where(h1, h2, h3, h4, h5, h6, th):not(:where([class~="not-prose"] *))) {
-  --tw-text-opacity: 1;
-  color: rgb(244 114 182 / var(--tw-text-opacity));
 }
 
 .prose-pre\:rounded-none :is(:where(pre):not(:where([class~="not-prose"] *))) {

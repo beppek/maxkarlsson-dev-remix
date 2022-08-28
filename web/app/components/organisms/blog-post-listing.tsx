@@ -2,7 +2,6 @@ import { Link } from '@remix-run/react';
 import format from 'date-fns/format';
 import type { Post } from '~/common/types';
 import { getUrlForImage } from '~/lib/sanity';
-import { BlockContent } from './block-content';
 
 interface Props {
   post: Post;
@@ -23,7 +22,6 @@ export function BlogPostListing({ post }: Props) {
           hover:border-teal-500 
           hover:scale-105 
           transition-all 
-          hover:shadow-retro 
           border-dashed
           text-black
           dark:text-white

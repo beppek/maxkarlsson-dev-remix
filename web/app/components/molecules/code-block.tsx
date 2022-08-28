@@ -48,23 +48,15 @@ export function CodeBlock({
   console.log('lang :>> ', lang);
   return (
     <div
-      className={`overflow-x-scroll prose prose-pre:rounded-none max-w-full`}
-      // style={{
-      //   p: {
-      //     m: '0',
-      //   },
-      //   pre: {
-      //     m: '0',
-      //     borderRadius: '0',
-      //     borderColor: colors?.main,
-      //     borderWidth: colors?.main ? '5px' : '',
-      //     borderImageSlice: 1,
-      //     borderImageSource: colors
-      //       ? `linear-gradient(to top left, ${colors.main}, ${colors.secondary})`
-      //       : '',
-      //     boxShadow: colors?.secondary ? `5px 5px 0 0 ${colors.secondary}` : '',
-      //   },
-      // }}
+      className={`
+        overflow-x-scroll 
+        prose 
+        prose-pre:!rounded-none 
+        prose-pre:border-4 
+        prose-pre:border-green-400 
+        prose-pre:!bg-slate-900
+        max-w-full
+      `}
     >
       <Refractor
         language={lang}

@@ -1543,10 +1543,6 @@ video {
   overflow: hidden;
 }
 
-.overflow-clip {
-  overflow: clip;
-}
-
 .overflow-y-auto {
   overflow-y: auto;
 }
@@ -3041,11 +3037,6 @@ h6 {
   font-family: "Press Start 2P", sans-serif;
 }
 
-.prose-headings\:text-pink-400 :is(:where(h1, h2, h3, h4, h5, h6, th):not(:where([class~="not-prose"] *))) {
-  --tw-text-opacity: 1;
-  color: rgb(244 114 182 / var(--tw-text-opacity));
-}
-
 .prose-pre\:rounded-none :is(:where(pre):not(:where([class~="not-prose"] *))) {
   border-radius: 0px;
 }
@@ -3056,10 +3047,6 @@ h6 {
 
 .prose-pre\:border-2 :is(:where(pre):not(:where([class~="not-prose"] *))) {
   border-width: 2px;
-}
-
-.prose-pre\:border-4 :is(:where(pre):not(:where([class~="not-prose"] *))) {
-  border-width: 4px;
 }
 
 .prose-pre\:border-dashed :is(:where(pre):not(:where([class~="not-prose"] *))) {

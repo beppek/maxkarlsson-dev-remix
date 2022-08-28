@@ -3,6 +3,18 @@ module.exports = {
   content: ['./app/**/*.{ts,tsx,jsx,js}'],
   theme: {
     extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            'code::before': {
+              content: '""',
+            },
+            'code::after': {
+              content: '""',
+            },
+          },
+        },
+      },
       screens: {
         '3xl': '2500px',
       },

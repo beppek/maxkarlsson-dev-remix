@@ -17,7 +17,7 @@ export function Header() {
   const logoUrl = useMemo(() => getUrlForImage(logo).url(), [logo]);
 
   return (
-    <Popover className="relative bg-white dark:bg-black">
+    <Popover className="sticky top-0 z-10 bg-white dark:bg-black border-b-2 border-green-400 border-dashed">
       <div className="flex justify-between items-center px-4 py-6 lg:py-0 sm:px-6 md:justify-start md:space-x-10">
         <div>
           <NavLink to="/" className="flex">
@@ -44,7 +44,7 @@ export function Header() {
                     flex 
                     flex-col 
                     items-center 
-                    hover:scale-110 
+                    hover:scale-105 
                     transition-all 
                     hover:bg-slate-200/75 
                     dark:hover:bg-slate-900/75 
@@ -56,7 +56,13 @@ export function Header() {
                     text-black
                     dark:text-white
                     font-heading
-                    ${isActive ? 'bg-slate-200/50 dark:bg-slate-700/50' : ''}
+                    border-dashed
+                    border-green-400
+                    ${
+                      isActive
+                        ? 'bg-slate-200/50 dark:bg-slate-700/50 border-r-2 border-l-2'
+                        : ''
+                    }
                   `;
                 }}
                 to={`/${item.link.href}`}
@@ -76,7 +82,7 @@ export function Header() {
               flex 
               flex-col 
               items-center 
-              hover:scale-110 
+              hover:scale-105
               transition-all 
               hover:bg-slate-200/75 
               dark:hover:bg-slate-900/75 

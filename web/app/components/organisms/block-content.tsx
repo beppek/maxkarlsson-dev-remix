@@ -79,7 +79,14 @@ const serializers = (colors?: { main: string; secondary: string }) => ({
     ),
   },
   marks: {
-    link: ({ children, mark }: any) => <Link to={mark.href}>{children}</Link>,
+    link: ({ children, mark }: any) => {
+      console.log('href :>> ', mark.href);
+      return (
+        <a className="text-green-400 hover:text-pink-400" href={mark.href}>
+          {children}
+        </a>
+      );
+    },
     internalLink: ({ children, mark }: any) => {
       const slug =
         mark.slug?.current === 'index'
@@ -88,7 +95,15 @@ const serializers = (colors?: { main: string; secondary: string }) => ({
           ? `/blog/${mark.slug?.current}`
           : `/${mark.slug?.current}`;
       const href = mark.anchor ? `${slug}${mark.anchor}` : slug;
-      return <Link to={href}>{children}</Link>;
+      return (
+        <Link
+          // style={{ color: colors?.main }}
+          className="text-green-400 hover:text-pink-400"
+          to={href}
+        >
+          {children}
+        </Link>
+      );
     },
     code: ({ children }: any) => <InlineCode value={children.join(' ')} />,
   },
@@ -99,59 +114,17 @@ export function BlockContent({ foregroundColor, palette, blocks }: Props) {
   const secondaryColor = palette?.darkVibrant;
   return (
     <div
-      className="w-full prose max-w-full"
-      // sx={{
-      //   p: {
-      //     marginY: 4,
-      //     lineHeight: 1.8,
-      //   },
-      //   ul: {
-      //     marginY: 8,
-      //     lineHeight: 1.8,
-      //     paddingInlineStart: '40px',
-      //   },
-      //   ol: {
-      //     marginY: 8,
-      //     lineHeight: 1.8,
-      //     paddingInlineStart: '40px',
-      //   },
-      //   a: {
-      //     _hover: {
-      //       textColor: 'brand.200',
-      //     },
-      //     textColor: foregroundColor || 'link',
-      //   },
-      //   h1: {
-      //     mt: '8',
-      //     fontFamily: fonts.heading,
-      //     fontSize: '3xl',
-      //   },
-      //   h2: {
-      //     mt: '8',
-      //     fontFamily: fonts.heading,
-      //     fontSize: { base: 'lg', md: 'xl', lg: '2xl' },
-      //   },
-      //   h3: {
-      //     mt: '8',
-      //     fontFamily: fonts.heading,
-      //     fontSize: { base: 'md', md: 'lg' },
-      //   },
-      //   h4: {
-      //     mt: '8',
-      //     fontFamily: fonts.heading,
-      //     fontSize: { base: 'md', md: 'lg' },
-      //   },
-      //   h5: {
-      //     mt: '8',
-      //     fontFamily: fonts.heading,
-      //     fontSize: 'md',
-      //   },
-      //   h6: {
-      //     mt: '8',
-      //     fontFamily: fonts.heading,
-      //     fontSize: 'md',
-      //   },
-      // }}
+      className={`
+        w-full 
+        prose 
+        prose-slate 
+        prose-headings:font-heading 
+        prose-headings:prose-base 
+        dark:prose-invert 
+        max-w-full 
+        text-black 
+        dark:text-white
+      `}
     >
       <SanityBlockContent
         dataset={config.sanity.dataset}
