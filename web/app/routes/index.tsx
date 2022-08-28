@@ -25,19 +25,37 @@ export default function Index() {
       className="flex items-center h-full"
       style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}
     >
-      <div className="flex-col items-center w-full -pt-20 lg:-pt-24 -mt-20 lg:mt-0">
+      <div className="flex-col justify-center items-center w-full -pt-20 lg:-pt-24 -mt-20 lg:mt-0">
         <h1 className="font-heading uppercase text-center font-extrabold">
-          <span className="text-transparent text-2xl lg:text-8xl bg-clip-text bg-gradient-to-r from-green-400 via-purple-500 to-blue-500">
+          <span className="text-transparent text-2xl lg:text-7xl bg-clip-text bg-gradient-to-r from-green-400 via-purple-500 to-blue-500">
             {title}
           </span>
         </h1>
         <div className="flex justify-center pt-2 lg:pt-16">
           <img alt={title} src={logoUrl} className="h-20 lg:h-80" />
         </div>
-        <div className="pt-2 lg:pt-20">
-          <p className="text-center font-heading text-green-400 text-xs lg:text-lg">
-            Hey there, have you come to read my musings?
-          </p>
+        <div className="pt-10 px-2 lg:pt-20 grid grid-cols-1 lg:grid-flow-col lg:grid-cols-none gap-4 lg:gap-20 justify-center">
+          <div className="flex items-center">
+            <p className="text-center font-heading text-green-400 text-xs lg:text-md">
+              Hey there, what would you like to do?
+            </p>
+          </div>
+          <div className="flex justify-center">
+            <div className="flex flex-col gap-4 font-heading text-purple-400 text-xs border-2 border-dashed py-8 px-12 border-green-400 w-80">
+              <button className="group text-left p-2 border-b-2 border-dashed border-b-green-400 hover:bg-slate-100 dark:hover:bg-slate-900">
+                <span className="hidden group-hover:inline">{'-'}</span>
+                {'>'} Read my blog
+              </button>
+              <button className="group text-left p-2 border-b-2 border-dashed border-b-green-400 hover:bg-slate-100 dark:hover:bg-slate-900">
+                <span className="hidden group-hover:inline">{'-'}</span>
+                {'>'} Learn about me
+              </button>
+              <button className="group text-left p-2 border-b-2 border-dashed border-b-green-400 hover:bg-slate-100 dark:hover:bg-slate-900">
+                <span className="hidden group-hover:inline">{'-'}</span>
+                {'>'} Search
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
