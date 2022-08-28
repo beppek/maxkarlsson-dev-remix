@@ -176,3 +176,21 @@ export async function fetchAllBlogPosts() {
   );
   return res;
 }
+
+export async function fetchPage({ slug }: { slug: string }) {
+  const res = await sanityClient.fetch(
+    `*[_type == 'page' && slug.current == $slug][0] {
+      'id': _id,
+      _updatedAt,
+      title,
+      parentPage,
+      pageLayout,
+      openGraph{
+        ...
+      },  
+      sections,
+    }`,
+    { slug },
+  );
+  return res;
+}
