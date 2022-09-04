@@ -18,7 +18,7 @@ export function Header() {
 
   return (
     <Popover className="sticky top-0 z-10 bg-white dark:bg-black border-b-2 border-green-400 border-dashed">
-      <div className="flex justify-between items-center px-4 py-6 lg:py-0 sm:px-6 md:justify-start md:space-x-10">
+      <div className="flex justify-between items-center px-4 py-6 lg:py-0 sm:px-6 md:justify-start md:space-x-10 overflow-hidden">
         <div>
           <NavLink to="/" className="flex">
             <span className="sr-only">{title}</span>
@@ -45,9 +45,12 @@ export function Header() {
                     flex-col 
                     items-center 
                     hover:scale-105 
+                    focus:scale-105 
                     transition-all 
-                    hover:bg-slate-200/75 
-                    dark:hover:bg-slate-900/75 
+                    hover:bg-slate-300/75 
+                    dark:hover:bg-slate-700/75 
+                    focus:bg-slate-300/75 
+                    dark:focus:bg-slate-700/75 
                     py-0
                     lg:py-2 
                     px-6
@@ -60,7 +63,7 @@ export function Header() {
                     border-green-400
                     ${
                       isActive
-                        ? 'bg-slate-200/50 dark:bg-slate-700/50 border-r-2 border-l-2'
+                        ? 'bg-slate-200/50 dark:bg-slate-800/50 border-r-2 border-l-2'
                         : ''
                     }
                   `;
@@ -84,8 +87,10 @@ export function Header() {
               items-center 
               hover:scale-105
               transition-all 
-              hover:bg-slate-200/75 
-              dark:hover:bg-slate-900/75 
+              hover:bg-slate-300/75 
+              dark:hover:bg-slate-700/75 
+              focus:bg-slate-300/75 
+              dark:focus:bg-slate-700/75 
               py-0
               lg:py-2 
               px-6
@@ -93,6 +98,7 @@ export function Header() {
               lg:text-md
               text-black
               dark:text-white
+              focus:scale-105 
               font-heading`}
               onClick={togglePrefersDarkMode}
             >
