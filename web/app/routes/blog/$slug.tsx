@@ -2,7 +2,6 @@ import { Link, useLoaderData } from '@remix-run/react';
 import format from 'date-fns/format';
 import type { Post } from '~/common/types';
 import { BlockContent } from '~/components/organisms/block-content';
-import { Window } from '~/components/organisms/window';
 import { fetchBlogPost, getUrlForImage } from '~/lib/sanity';
 import { slugify } from '~/utils/string-utils';
 

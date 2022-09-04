@@ -2,7 +2,6 @@ import type { MetaFunction } from '@remix-run/cloudflare';
 import { useLoaderData } from '@remix-run/react';
 import type { Post } from '~/common/types';
 import { BlogPostListing } from '~/components/organisms/blog-post-listing';
-import { Window } from '~/components/organisms/window';
 import { fetchAllBlogPosts } from '~/lib/sanity';
 
 export const meta: MetaFunction = () => ({
@@ -18,7 +17,6 @@ export async function loader() {
 
 export default function Blog() {
   const { posts } = useLoaderData();
-  console.log('posts :>> ', posts);
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
       <div className="flex justify-center  px-4 lg:px-8">
