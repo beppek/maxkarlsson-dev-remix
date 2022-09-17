@@ -44,8 +44,6 @@ export function CodeBlock({
 }: CodeBlockProps) {
   // @ts-ignore
   const lang = languageMapper[language] || language;
-  console.log('colors :>> ', colors);
-  console.log('lang :>> ', lang);
   return (
     <div
       className={`
