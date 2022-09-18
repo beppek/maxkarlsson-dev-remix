@@ -1,15 +1,15 @@
+import type { LoaderArgs } from '@remix-run/cloudflare';
+import { CatchAllPage } from '~/components/templates/catch-all-page';
 import { fetchPage } from '~/lib/sanity';
 
-export async function loader({ params }) {
+export async function loader({ params }: LoaderArgs) {
   const { slug } = params;
-  console.log('slug :>> ', slug);
-  const page = await fetchPage({ slug });
-  console.log('page :>> ', page);
+  const page = await fetchPage({ slug: slug as string });
   return {
     page,
   };
 }
 
 export default function CatchAll() {
-  return <div>page</div>;
+  return <CatchAllPage />;
 }

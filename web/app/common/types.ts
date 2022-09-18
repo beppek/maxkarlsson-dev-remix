@@ -108,3 +108,25 @@ export interface Post extends CMSContentBase {
   relatedPosts: Post[];
   latestPosts: Post[];
 }
+
+export interface PageSection {
+  _type: 'textSection' | 'hero';
+  label: string;
+  _key: string;
+}
+
+export interface TextSection extends PageSection {
+  text: {
+    content: BodyContent[];
+    horizontalAlignment: string;
+    verticalAlignment: string;
+  };
+}
+
+export interface Page extends CMSContentBase {
+  openGraph: any;
+  pageLayout: string;
+  parentPage: Page;
+  title: string;
+  sections: TextSection[];
+}
