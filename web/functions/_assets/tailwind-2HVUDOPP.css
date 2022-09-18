@@ -2647,24 +2647,12 @@ h6 {
     width: 16.666667%;
   }
 
-  .lg\:w-7\/12 {
-    width: 58.333333%;
-  }
-
   .lg\:max-w-screen-lg {
     max-width: 1024px;
   }
 
   .lg\:max-w-3xl {
     max-width: 48rem;
-  }
-
-  .lg\:max-w-7xl {
-    max-width: 80rem;
-  }
-
-  .lg\:max-w-6xl {
-    max-width: 72rem;
   }
 
   .lg\:grid-flow-col {
