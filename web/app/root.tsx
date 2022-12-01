@@ -23,8 +23,10 @@ export function links() {
     { rel: "preconnect", href: "https://cdn.sanity.io" },
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
     {
-      rel: "stylesheet",
+      rel: "preload",
+      as: "stylesheet",
       href: "https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fira+Sans&display=swap",
+      onload: "this.rel='stylesheet'",
     },
   ];
 }
