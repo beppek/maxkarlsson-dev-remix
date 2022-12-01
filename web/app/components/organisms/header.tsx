@@ -1,11 +1,11 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useMemo } from 'react';
-import { Popover, Transition } from '@headlessui/react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { NavLink, useLoaderData } from '@remix-run/react';
-import { usePrefersDarkMode } from '~/hooks/use-prefers-dark-mode';
-import { getUrlForImage } from '~/lib/sanity';
-import { SVG } from '../atoms/svg';
+import { Fragment, useMemo } from "react";
+import { Popover, Transition } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { NavLink, useLoaderData } from "@remix-run/react";
+import { usePrefersDarkMode } from "~/hooks/use-prefers-dark-mode";
+import { getUrlForImage } from "~/lib/sanity";
+import { SVG } from "../atoms/svg";
 
 export function Header() {
   const {
@@ -14,7 +14,10 @@ export function Header() {
 
   const { prefersDarkMode, togglePrefersDarkMode } = usePrefersDarkMode();
 
-  const logoUrl = useMemo(() => getUrlForImage(logo).url(), [logo]);
+  const logoUrl = useMemo(
+    () => getUrlForImage(logo).size(50, 50).url(),
+    [logo]
+  );
 
   return (
     <Popover className="sticky top-0 z-10 bg-white dark:bg-black border-b-2 border-green-400 border-dashed">
@@ -64,8 +67,8 @@ export function Header() {
                     border-l-2
                     ${
                       isActive
-                        ? 'bg-slate-200/50 dark:bg-slate-800/50 border-green-400'
-                        : 'border-transparent'
+                        ? "bg-slate-200/50 dark:bg-slate-800/50 border-green-400"
+                        : "border-transparent"
                     }
                   `;
                 }}
@@ -104,9 +107,9 @@ export function Header() {
               onClick={togglePrefersDarkMode}
             >
               <SVG
-                fill={prefersDarkMode ? 'white' : 'black'}
+                fill={prefersDarkMode ? "white" : "black"}
                 className="w-6 h-6 lg:w-10 lg:h-10"
-                src={'/icons/toggle-theme.svg'}
+                src={"/icons/toggle-theme.svg"}
               />
               Toggle
             </button>
@@ -189,9 +192,9 @@ export function Header() {
                 onClick={togglePrefersDarkMode}
               >
                 <SVG
-                  fill={prefersDarkMode ? 'white' : 'black'}
+                  fill={prefersDarkMode ? "white" : "black"}
                   className="w-6 h-6 lg:w-10 lg:h-10"
-                  src={'/icons/toggle-theme.svg'}
+                  src={"/icons/toggle-theme.svg"}
                 />
                 Toggle
               </button>

@@ -1,13 +1,13 @@
-import PicoSanity from 'picosanity';
+import PicoSanity from "picosanity";
 
-import imageUrlBuilder from '@sanity/image-url';
-import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
+import imageUrlBuilder from "@sanity/image-url";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 const config = {
-  apiVersion: '2021-03-25',
+  apiVersion: "2021-03-25",
   // Find these in your ./studio/sanity.json file
-  dataset: 'production',
-  projectId: 'hytow8kc',
+  dataset: "production",
+  projectId: "hytow8kc",
   useCdn: true,
 };
 
@@ -17,7 +17,7 @@ export const sanityClient = new PicoSanity(config);
 const builder = imageUrlBuilder(sanityClient);
 
 export const getUrlForImage = (source: SanityImageSource) =>
-  builder.image(source);
+  builder.image(source).auto("format");
 
 export async function fetchLogo() {
   const res = await sanityClient.fetch(
@@ -26,7 +26,7 @@ export async function fetchLogo() {
         ...,
         asset->
       }
-    }`,
+    }`
   );
   return res;
 }
@@ -92,7 +92,7 @@ export async function fetchLayout() {
           }
         }
       },
-    }`,
+    }`
   );
   return res;
 }
@@ -107,7 +107,7 @@ export async function fetchBackgroundOptions() {
           asset->
         }
       },
-    }`,
+    }`
   );
   return res;
 }
@@ -163,7 +163,7 @@ export async function fetchBlogPost({ slug }: { slug: string }) {
         ${listingPostFragment}
       },
     }`,
-    { slug },
+    { slug }
   );
   return res;
 }
@@ -172,7 +172,7 @@ export async function fetchAllBlogPosts() {
   const res = await sanityClient.fetch(
     `*[_type == 'post' && dateTime(publishedAt) <= dateTime(now())] | order(publishedAt desc)[] {
       ${listingPostFragment}
-    }`,
+    }`
   );
   return res;
 }
@@ -190,7 +190,7 @@ export async function fetchPage({ slug }: { slug: string }) {
       },  
       sections,
     }`,
-    { slug },
+    { slug }
   );
   return res;
 }
