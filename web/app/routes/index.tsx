@@ -20,7 +20,7 @@ export default function Index() {
   } = useLoaderData();
 
   const logoUrl = useMemo(
-    () => getUrlForImage(logo).size(350, 350).url(),
+    () => getUrlForImage(logo).size(330, 330).url(),
     [logo]
   );
   return (
