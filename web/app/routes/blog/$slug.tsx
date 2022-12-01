@@ -91,12 +91,15 @@ export default function BlogPostPage() {
                 className="py-4 px-6"
               >
                 <img
+                  height={150}
+                  width={150}
                   className="w-[150px] h-[150px]"
                   src={getUrlForImage(relatedPost.mainImage)
                     .width(150)
                     .height(150)
                     .url()}
                   alt={relatedPost.mainImage.alt}
+                  loading="lazy"
                 />
                 <h4 className="font-inlineCode text-sm">
                   {relatedPost.shortTitle || relatedPost.title}
