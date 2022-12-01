@@ -1,7 +1,7 @@
-import { Link } from '@remix-run/react';
-import format from 'date-fns/format';
-import type { Post } from '~/common/types';
-import { getUrlForImage } from '~/lib/sanity';
+import { Link } from "@remix-run/react";
+import format from "date-fns/format";
+import type { Post } from "~/common/types";
+import { getUrlForImage } from "~/lib/sanity";
 
 interface Props {
   post: Post;
@@ -11,8 +11,14 @@ export function BlogPostListing({ post }: Props) {
   return (
     <Link
       style={{
-        borderColor: post.mainImage.asset.metadata.palette.dominant.background,
-        color: post.mainImage.asset.metadata.palette.dominant.foreground,
+        borderColor: (
+          post.mainImage.asset.metadata.palette.darkVibrant ||
+          post.mainImage.asset.metadata.palette.darkMuted
+        ).background,
+        color: (
+          post.mainImage.asset.metadata.palette.darkVibrant ||
+          post.mainImage.asset.metadata.palette.darkMuted
+        ).foreground,
       }}
       to={`/blog/${post.slug}`}
       className={`
@@ -29,8 +35,10 @@ export function BlogPostListing({ post }: Props) {
     >
       <span
         style={{
-          backgroundColor:
-            post.mainImage.asset.metadata.palette.dominant.background,
+          backgroundColor: (
+            post.mainImage.asset.metadata.palette.darkVibrant ||
+            post.mainImage.asset.metadata.palette.darkMuted
+          ).background,
         }}
         className="inline-block w-full h-full"
       >
@@ -42,7 +50,7 @@ export function BlogPostListing({ post }: Props) {
         <span className="inline-block p-2 lg:p-4 font-heading">
           <h3 className="text-sm">{post.shortTitle || post.title}</h3>
           <p className="text-xs pt-4 px-2">
-            {format(new Date(post.publishedAt), 'MMMM d, y')}
+            {format(new Date(post.publishedAt), "MMMM d, y")}
           </p>
         </span>
       </span>

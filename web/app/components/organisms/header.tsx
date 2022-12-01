@@ -53,18 +53,19 @@ export function Header() {
                     dark:focus:bg-slate-700/75 
                     py-0
                     lg:py-2 
-                    px-6
                     text-sm
                     lg:text-md
                     text-black
                     dark:text-white
                     font-heading
+                    px-6
                     border-dashed
-                    border-green-400
+                    border-r-2 
+                    border-l-2
                     ${
                       isActive
-                        ? 'bg-slate-200/50 dark:bg-slate-800/50 border-r-2 border-l-2'
-                        : ''
+                        ? 'bg-slate-200/50 dark:bg-slate-800/50 border-green-400'
+                        : 'border-transparent'
                     }
                   `;
                 }}
@@ -158,7 +159,7 @@ export function Header() {
                           alt={item.icon.alt}
                         />
                       </div>
-                      <div className="ml-4 text-base font-medium text-black dark:text-white">
+                      <div className="ml-4 text-base font-normal text-black dark:text-white">
                         {item.text}
                       </div>
                     </NavLink>

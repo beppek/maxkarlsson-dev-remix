@@ -47,7 +47,6 @@ export function CodeBlock({
   return (
     <div
       className={`
-        overflow-x-scroll 
         prose 
         prose-pre:!rounded-none 
         prose-pre:border-4 
