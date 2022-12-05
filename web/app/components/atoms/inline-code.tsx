@@ -4,7 +4,7 @@ type InlineCodeProps = {
 
 export function InlineCode({ value }: InlineCodeProps) {
   return (
-    <code className="font-inlineCode m-[1px] py-[2px] px-[8px] text-white bg-cyan-600 rounded-lg">
+    <code className="font-inlineCode m-[1px] py-[2px] px-[8px] text-white bg-cyan-700 rounded-lg">
       {value}
     </code>
   );

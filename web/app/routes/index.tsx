@@ -1,10 +1,10 @@
-import type { MetaFunction } from "@remix-run/cloudflare";
-import { Link, useLoaderData } from "@remix-run/react";
-import { useMemo } from "react";
-import { fetchLayout, getUrlForImage } from "~/lib/sanity";
+import type { MetaFunction } from '@remix-run/cloudflare';
+import { Link, useLoaderData } from '@remix-run/react';
+import { useMemo } from 'react';
+import { fetchLayout, getUrlForImage } from '~/lib/sanity';
 
 export const meta: MetaFunction = () => ({
-  title: "Home | Max Karlsson",
+  title: 'Home | Max Karlsson',
 });
 
 export async function loader() {
@@ -20,13 +20,16 @@ export default function Index() {
   } = useLoaderData();
 
   const logoUrl = useMemo(
-    () => getUrlForImage(logo).size(330, 330).url(),
-    [logo]
+    () => ({
+      mobile: getUrlForImage(logo).size(120, 120).url(),
+      desktop: getUrlForImage(logo).size(340, 340).url(),
+    }),
+    [logo],
   );
   return (
     <div
       className="flex items-center h-full"
-      style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}
+      style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}
     >
       <div className="flex-col justify-center items-center w-full pt-20 lg:pt-24">
         <h1 className="font-heading uppercase text-center font-extrabold">
@@ -35,7 +38,29 @@ export default function Index() {
           </span>
         </h1>
         <div className="flex justify-center pt-2 lg:pt-10">
-          <img alt={title} src={logoUrl} className="h-20 lg:h-80" />
+          <picture>
+            <source
+              srcSet={logoUrl.mobile}
+              className="h-20"
+              media="(max-width: 1023px)"
+              height={80}
+              width={80}
+            />
+            <source
+              srcSet={logoUrl.desktop}
+              className="h-20 lg:h-80"
+              media="(min-width: 1024px)"
+              height={320}
+              width={320}
+            />
+            <img
+              alt={title}
+              src={logoUrl.desktop}
+              className="h-20 lg:h-80"
+              height={320}
+              width={320}
+            />
+          </picture>
         </div>
         <div className="pt-10 px-2 lg:pt-10 grid grid-cols-1 lg:grid-flow-col lg:grid-cols-none gap-4 lg:gap-20 justify-center">
           <div className="flex items-center">
@@ -49,19 +74,19 @@ export default function Index() {
                 to="/blog"
                 className="group text-left p-2 border-b-2 border-dashed border-b-green-400 hover:bg-slate-100 dark:hover:bg-slate-900"
               >
-                <span className="hidden group-hover:inline">{"-"}</span>
-                {">"} Read my blog
+                <span className="hidden group-hover:inline">{'-'}</span>
+                {'>'} Read my blog
               </Link>
               <Link
                 to="/about"
                 className="group text-left p-2 border-b-2 border-dashed border-b-green-400 hover:bg-slate-100 dark:hover:bg-slate-900"
               >
-                <span className="hidden group-hover:inline">{"-"}</span>
-                {">"} Learn about me
+                <span className="hidden group-hover:inline">{'-'}</span>
+                {'>'} Learn about me
               </Link>
               <button className="group text-left p-2 border-b-2 border-dashed border-b-green-400 hover:bg-slate-100 dark:hover:bg-slate-900">
-                <span className="hidden group-hover:inline">{"-"}</span>
-                {">"} Search
+                <span className="hidden group-hover:inline">{'-'}</span>
+                {'>'} Search
               </button>
             </div>
           </div>

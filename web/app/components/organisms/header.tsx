@@ -1,11 +1,11 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useMemo } from "react";
-import { Popover, Transition } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { NavLink, useLoaderData } from "@remix-run/react";
-import { usePrefersDarkMode } from "~/hooks/use-prefers-dark-mode";
-import { getUrlForImage } from "~/lib/sanity";
-import { SVG } from "../atoms/svg";
+import { Fragment, useMemo } from 'react';
+import { Popover, Transition } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { NavLink, useLoaderData } from '@remix-run/react';
+import { usePrefersDarkMode } from '~/hooks/use-prefers-dark-mode';
+import { getUrlForImage } from '~/lib/sanity';
+import { SVG } from '../atoms/svg';
 
 export function Header() {
   const {
@@ -15,8 +15,11 @@ export function Header() {
   const { prefersDarkMode, togglePrefersDarkMode } = usePrefersDarkMode();
 
   const logoUrl = useMemo(
-    () => getUrlForImage(logo).size(50, 50).url(),
-    [logo]
+    () => ({
+      mobile: getUrlForImage(logo).size(64, 64).url(),
+      desktop: getUrlForImage(logo).size(60, 60).url(),
+    }),
+    [logo],
   );
 
   return (
@@ -25,7 +28,31 @@ export function Header() {
         <div>
           <NavLink to="/" className="flex">
             <span className="sr-only">{title}</span>
-            <img className="h-8 w-auto sm:h-10" src={logoUrl} alt={title} />
+            <picture>
+              <source
+                srcSet={`${logoUrl.mobile}`}
+                media="(max-width: 639px)"
+                className="h-8 w-auto sm:h-10"
+                width="32"
+                height="32"
+              />
+              <source
+                srcSet={`${logoUrl.desktop}`}
+                sizes="(min-width: 640px)"
+                className="h-8 w-auto sm:h-10"
+                width="50"
+                height="50"
+              />
+              <img
+                srcSet={`${logoUrl.mobile} 40w, ${logoUrl.desktop} 50w`}
+                sizes="(max-width: 639px) 40px, 50px"
+                className="h-8 w-auto sm:h-10"
+                src={logoUrl.desktop}
+                alt={title}
+                width="50"
+                height="50"
+              />
+            </picture>
           </NavLink>
         </div>
         <div className="-mr-2 -my-2 md:hidden">
@@ -67,8 +94,8 @@ export function Header() {
                     border-l-2
                     ${
                       isActive
-                        ? "bg-slate-200/50 dark:bg-slate-800/50 border-green-400"
-                        : "border-transparent"
+                        ? 'bg-slate-200/50 dark:bg-slate-800/50 border-green-400'
+                        : 'border-transparent'
                     }
                   `;
                 }}
@@ -168,7 +195,11 @@ export function Header() {
             <div className="pt-5 pb-6 px-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <img className="h-8 w-auto" src={logoUrl} alt={title} />
+                  <img
+                    className="h-8 w-auto"
+                    src={logoUrl.mobile}
+                    alt={title}
+                  />
                 </div>
                 <div className="-mr-2">
                   <Popover.Button className="bg-white dark:bg-black rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover-bg-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-400">
@@ -226,9 +257,9 @@ export function Header() {
                 onClick={togglePrefersDarkMode}
               >
                 <SVG
-                  fill={prefersDarkMode ? "white" : "black"}
+                  fill={prefersDarkMode ? 'white' : 'black'}
                   className="w-6 h-6 lg:w-10 lg:h-10"
-                  src={"/icons/toggle-theme.svg"}
+                  src={'/icons/toggle-theme.svg'}
                 />
                 Toggle
               </button>
