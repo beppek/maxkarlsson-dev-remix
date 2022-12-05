@@ -4,9 +4,12 @@ import type { Post } from '~/common/types';
 import { BlogPostListing } from '~/components/organisms/blog-post-listing';
 import { fetchAllBlogPosts } from '~/lib/sanity';
 
-export const meta: MetaFunction = () => ({
-  title: 'Blog | Max Karlsson',
-});
+export const meta: MetaFunction = ({ parentsData }) => {
+  const { title } = parentsData.root.layout;
+  return {
+    title: `Blog | ${title}`,
+  };
+};
 
 export async function loader() {
   const posts = await fetchAllBlogPosts();

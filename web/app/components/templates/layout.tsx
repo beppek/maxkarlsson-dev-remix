@@ -9,7 +9,7 @@ export function Layout({ children }: LayoutProps) {
   return (
     <div className={`bg-white dark:bg-black flex flex-col min-h-screen`}>
       <Header />
-      <main className="">{children}</main>
+      <main className="h-full">{children}</main>
       <footer className="mt-auto py-2 lg:py-6">
         <p className="text-slate-600 dark:text-slate-400 text-center font-heading text-xs">
           <>© Copyright {new Date().getFullYear()} Max Karlsson</>

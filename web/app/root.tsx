@@ -8,14 +8,23 @@ import {
   ScrollRestoration,
 } from '@remix-run/react';
 import { Layout } from '~/components/templates/layout';
-import { fetchLayout } from '~/lib/sanity';
+import { fetchLayout, getUrlForImage } from '~/lib/sanity';
 import styles from './tailwind.css';
 
-export const meta: MetaFunction = () => ({
-  charset: 'utf-8',
-  title: 'New Remix App',
-  viewport: 'width=device-width,initial-scale=1',
-});
+export const meta: MetaFunction = ({
+  data: {
+    layout: { logo, title },
+  },
+}) => {
+  return {
+    charset: 'utf-8',
+    title: title,
+    description:
+      'Max Karlsson, a web developer, shares his insights and expertise on web development topics. From coding tips to industry trends, check out this blog for valuable insights and advice.',
+    'og:image': getUrlForImage(logo).size(1200, 627).url(),
+    viewport: 'width=device-width,initial-scale=1',
+  };
+};
 
 export function links() {
   return [

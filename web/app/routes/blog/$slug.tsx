@@ -1,12 +1,22 @@
-import { Link, useLoaderData } from "@remix-run/react";
-import format from "date-fns/format";
-import type { Post } from "~/common/types";
-import { BlockContent } from "~/components/organisms/block-content";
-import { fetchBlogPost, getUrlForImage } from "~/lib/sanity";
+import type { LoaderArgs, MetaFunction } from '@remix-run/cloudflare';
+import { Link, useLoaderData } from '@remix-run/react';
+import format from 'date-fns/format';
+import type { Post } from '~/common/types';
+import { BlockContent } from '~/components/organisms/block-content';
+import { fetchBlogPost, getUrlForImage } from '~/lib/sanity';
 // import { slugify } from "~/utils/string-utils";
 
-export async function loader({ params }) {
-  const { slug } = params;
+export const meta: MetaFunction = ({ data, parentsData }) => {
+  const { title } = parentsData.root.layout;
+  return {
+    title: `${data.post.title} | ${title}`,
+    description: data.post.plainTextExcerpt,
+    'og:image': getUrlForImage(data.post.mainImage).size(1200, 627).url(),
+  };
+};
+
+export async function loader({ params }: LoaderArgs) {
+  const { slug } = params as { slug: string };
   const post = await fetchBlogPost({ slug });
   return {
     post,
@@ -14,7 +24,7 @@ export async function loader({ params }) {
 }
 
 export function links() {
-  return [{ rel: "stylesheet", href: "/assets/prism.css" }];
+  return [{ rel: 'stylesheet', href: '/assets/prism.css' }];
 }
 
 export default function BlogPostPage() {
@@ -40,7 +50,7 @@ export default function BlogPostPage() {
             >
               <h1 className="font-heading">{post.title}</h1>
               <p className="font-heading text-xs">
-                {format(new Date(post.publishedAt), "MMMM d, y")}
+                {format(new Date(post.publishedAt), 'MMMM d, y')}
               </p>
             </div>
           </div>
@@ -105,7 +115,7 @@ export default function BlogPostPage() {
                   {relatedPost.shortTitle || relatedPost.title}
                 </h4>
                 <p className="font-inlineCode text-xs">
-                  {format(new Date(relatedPost.publishedAt), "MMMM d, y")}
+                  {format(new Date(relatedPost.publishedAt), 'MMMM d, y')}
                 </p>
               </Link>
             ))}
