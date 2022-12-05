@@ -80,7 +80,6 @@ const serializers = (colors?: { main: string; secondary: string }) => ({
   },
   marks: {
     link: ({ children, mark }: any) => {
-      console.log('href :>> ', mark.href);
       return (
         <a className="text-green-400 hover:text-pink-400" href={mark.href}>
           {children}

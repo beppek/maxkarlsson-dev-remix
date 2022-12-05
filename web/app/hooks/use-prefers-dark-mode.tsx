@@ -18,7 +18,6 @@ export function usePrefersDarkMode() {
 
   const handleLocalStorageChanges = useCallback(() => {
     const theme = localStorage.getItem('theme');
-    console.log('theme :>> ', theme);
     setPrefersDarkMode(theme === 'dark');
   }, []);
 
