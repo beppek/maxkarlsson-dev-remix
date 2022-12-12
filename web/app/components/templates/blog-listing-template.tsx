@@ -49,7 +49,13 @@ export function BlogListingTemplate({ posts, totalPages, currentPage }: Props) {
         ...{" "}
         <PaginationLink
           disabled={disableNext}
-          to={disableNext ? "" : `/blog/page/${currentPage + 1}`}
+          to={
+            disableNext
+              ? ""
+              : currentPage === 2
+              ? "/blog"
+              : `/blog/page/${currentPage + 1}`
+          }
         >
           Next &gt;
         </PaginationLink>

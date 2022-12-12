@@ -16,7 +16,11 @@ export const meta: MetaFunction = ({ parentsData, params }) => {
 export async function loader({ params }: LoaderArgs) {
   const { page } = params as { page: string };
   const pageNumber = parseInt(page);
-  if (pageNumber < 2 || isNaN(pageNumber)) return redirect("/blog");
+
+  if (pageNumber < 2 || isNaN(pageNumber)) {
+    return redirect("/blog", 308);
+  }
+
   const allPosts = await fetchAllBlogPosts();
   const totalPages = Math.ceil(allPosts.length / DEFAULT_PAGE_SIZE);
   const posts = allPosts.slice(
