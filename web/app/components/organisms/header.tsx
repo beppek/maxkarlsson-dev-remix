@@ -66,9 +66,8 @@ export function Header() {
         <div className="hidden md:flex-1 md:flex md:items-center md:justify-between">
           <nav className="flex space-x-2">
             {primaryNav?.items.map((item: any) => (
-              <>
+              <Fragment key={item._key}>
                 <NavLink
-                  key={item._key}
                   className={({ isActive }) => {
                     return `
                     group
@@ -118,7 +117,7 @@ export function Header() {
                     </>
                   )}
                 </NavLink>
-              </>
+              </Fragment>
             ))}
           </nav>
           <div className="flex items-center md:ml-12">
