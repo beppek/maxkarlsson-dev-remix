@@ -42,20 +42,20 @@ export function BlogListingTemplate({ posts, totalPages, currentPage }: Props) {
       <div className="flex justify-center my-10 lg:my-20 gap-4 lg:gap-10 font-heading text-black dark:text-white">
         <PaginationLink
           disabled={disablePrevious}
-          to={disablePrevious ? "/blog" : `/blog/page/${currentPage - 1}`}
+          to={
+            disablePrevious
+              ? "/blog"
+              : currentPage === 2
+              ? "/blog"
+              : `/blog/page/${currentPage - 1}`
+          }
         >
           &lt; Previous
         </PaginationLink>{" "}
         ...{" "}
         <PaginationLink
           disabled={disableNext}
-          to={
-            disableNext
-              ? ""
-              : currentPage === 2
-              ? "/blog"
-              : `/blog/page/${currentPage + 1}`
-          }
+          to={disableNext ? "" : `/blog/page/${currentPage + 1}`}
         >
           Next &gt;
         </PaginationLink>
