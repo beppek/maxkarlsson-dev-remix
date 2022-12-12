@@ -1,7 +1,9 @@
 import PicoSanity from "picosanity";
+import groq from "groq";
 
 import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import type { ListingPostFragment } from "~/common/types";
 
 const config = {
   apiVersion: "2021-03-25",
@@ -21,7 +23,7 @@ export const getUrlForImage = (source: SanityImageSource) =>
 
 export async function fetchLogo() {
   const res = await sanityClient.fetch(
-    `*[_type == 'globalSiteLayout'][0] {
+    groq`*[_type == 'globalSiteLayout'][0] {
       'logo': tabs.header.logo{
         ...,
         asset->
@@ -31,7 +33,7 @@ export async function fetchLogo() {
   return res;
 }
 
-const href = `
+const href = groq`
 'href': select(
   defined(anchorLink) && !defined(page) => anchorLink,
   defined(anchorLink) => select(page->slug.current != 'index' => page->slug.current, '') + anchorLink,
@@ -42,7 +44,7 @@ const href = `
 ),
 `;
 
-const listingPostFragment = `
+const listingPostFragment = groq`
   'id': _id,
   _updatedAt,
   title,
@@ -65,7 +67,7 @@ const listingPostFragment = `
 
 export async function fetchLayout() {
   const res = await sanityClient.fetch(
-    `*[_type == 'globalSiteLayout'][0] {
+    groq`*[_type == 'globalSiteLayout'][0] {
       'backgroundOptions': tabs.desktopSettings.backgroundOptions[]{
         ...,
         options[]{
@@ -99,7 +101,7 @@ export async function fetchLayout() {
 
 export async function fetchBackgroundOptions() {
   const res = await sanityClient.fetch(
-    `*[_type == 'globalSiteLayout'][0] {
+    groq`*[_type == 'globalSiteLayout'][0] {
       'backgroundOptions': tabs.desktopSettings.backgroundOptions[]{
         ...,
         options[]{
@@ -114,7 +116,7 @@ export async function fetchBackgroundOptions() {
 
 export async function fetchBlogPost({ slug }: { slug: string }) {
   const res = await sanityClient.fetch(
-    `*[_type == 'post' && slug.current == $slug][0] {
+    groq`*[_type == 'post' && slug.current == $slug][0] {
       'id': _id,
       _updatedAt,
       title,
@@ -168,9 +170,9 @@ export async function fetchBlogPost({ slug }: { slug: string }) {
   return res;
 }
 
-export async function fetchAllBlogPosts() {
+export async function fetchAllBlogPosts(): Promise<ListingPostFragment[]> {
   const res = await sanityClient.fetch(
-    `*[_type == 'post' && dateTime(publishedAt) <= dateTime(now())] | order(publishedAt desc)[] {
+    groq`*[_type == 'post' && dateTime(publishedAt) <= dateTime(now())] | order(publishedAt desc)[] {
       ${listingPostFragment}
     }`
   );
@@ -179,7 +181,7 @@ export async function fetchAllBlogPosts() {
 
 export async function fetchPage({ slug }: { slug: string }) {
   const res = await sanityClient.fetch(
-    `*[_type == 'page' && slug.current == $slug][0] {
+    groq`*[_type == 'page' && slug.current == $slug][0] {
       'id': _id,
       _updatedAt,
       title,
@@ -193,4 +195,18 @@ export async function fetchPage({ slug }: { slug: string }) {
     { slug }
   );
   return res;
+}
+
+export async function fetchDocumentCount({
+  preview = false,
+  _type,
+}: {
+  preview: boolean;
+  _type: string;
+}) {
+  const query = groq`
+    count(*[_type == $type${!preview ? ' && !(_id in path("drafts.**"))' : ""}])
+  `;
+  const data = await sanityClient.fetch(query, { type: _type });
+  return data;
 }

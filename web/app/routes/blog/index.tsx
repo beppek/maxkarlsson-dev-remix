@@ -1,8 +1,8 @@
-import type { MetaFunction } from '@remix-run/cloudflare';
-import { useLoaderData } from '@remix-run/react';
-import type { Post } from '~/common/types';
-import { BlogPostListing } from '~/components/organisms/blog-post-listing';
-import { fetchAllBlogPosts } from '~/lib/sanity';
+import type { MetaFunction } from "@remix-run/cloudflare";
+import { useLoaderData } from "@remix-run/react";
+import { BlogListingTemplate } from "~/components/templates/blog-listing-template";
+import { fetchAllBlogPosts } from "~/lib/sanity";
+import { DEFAULT_PAGE_SIZE } from "~/utils/constants";
 
 export const meta: MetaFunction = ({ parentsData }) => {
   const { title } = parentsData.root.layout;
@@ -13,22 +13,20 @@ export const meta: MetaFunction = ({ parentsData }) => {
 
 export async function loader() {
   const posts = await fetchAllBlogPosts();
+  const totalPages = Math.ceil(posts.length / DEFAULT_PAGE_SIZE);
   return {
-    posts,
+    posts: posts.slice(0, DEFAULT_PAGE_SIZE),
+    totalPages,
   };
 }
 
 export default function Blog() {
-  const { posts } = useLoaderData();
+  const { posts, totalPages } = useLoaderData();
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
-      <div className="flex justify-center  px-4 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 gap-3 lg:gap-6 my-2 lg:my-5">
-          {posts.map((post: Post) => (
-            <BlogPostListing key={post.id} post={post} />
-          ))}
-        </div>
-      </div>
-    </div>
+    <BlogListingTemplate
+      posts={posts}
+      totalPages={totalPages}
+      currentPage={1}
+    />
   );
 }
