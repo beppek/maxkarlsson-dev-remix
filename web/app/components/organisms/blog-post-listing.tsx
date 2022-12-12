@@ -19,6 +19,12 @@ export function BlogPostListing({ post }: Props) {
           post.mainImage.asset.metadata.palette.darkVibrant ||
           post.mainImage.asset.metadata.palette.darkMuted
         ).foreground,
+        boxShadow: `0px 0px 8px 1px ${
+          (
+            post.mainImage.asset.metadata.palette.darkVibrant ||
+            post.mainImage.asset.metadata.palette.darkMuted
+          ).background
+        }`,
       }}
       to={`/blog/${post.slug}`}
       className={`
@@ -28,7 +34,7 @@ export function BlogPostListing({ post }: Props) {
           hover:border-teal-500 
           hover:scale-105 
           transition-all 
-          border-dashed
+          border-solid
           text-black
           dark:text-white
         `}

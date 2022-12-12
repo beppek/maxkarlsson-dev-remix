@@ -1,7 +1,7 @@
-import type { MetaFunction } from '@remix-run/cloudflare';
-import { Link, useLoaderData } from '@remix-run/react';
-import { useMemo } from 'react';
-import { fetchLayout, getUrlForImage } from '~/lib/sanity';
+import type { MetaFunction } from "@remix-run/cloudflare";
+import { Link, useLoaderData } from "@remix-run/react";
+import { useMemo } from "react";
+import { fetchLayout, getUrlForImage } from "~/lib/sanity";
 
 export const meta: MetaFunction = (data) => {
   const {
@@ -31,7 +31,7 @@ export default function Index() {
       mobile: getUrlForImage(logo).size(120, 120).url(),
       desktop: getUrlForImage(logo).size(300, 300).url(),
     }),
-    [logo],
+    [logo]
   );
   return (
     <div className="flex items-center h-[calc(100vh-142px)] w-full">
@@ -56,7 +56,7 @@ export default function Index() {
               <img
                 alt={title}
                 src={logoUrl.desktop}
-                className="h-20 lg:h-60"
+                className="h-20 lg:h-60 rounded-full"
                 height={240}
                 width={240}
               />
@@ -78,15 +78,15 @@ export default function Index() {
                 to="/blog"
                 className="group text-left p-2 border-b-2 border-dashed border-b-green-400 hover:bg-slate-100 dark:hover:bg-slate-900"
               >
-                <span className="hidden group-hover:inline">{'-'}</span>
-                {'>'} Read my blog
+                <span className="hidden group-hover:inline">{"-"}</span>
+                {">"} Read my blog
               </Link>
               <Link
                 to="/about"
                 className="group text-left p-2 border-b-2 border-dashed border-b-green-400 hover:bg-slate-100 dark:hover:bg-slate-900"
               >
-                <span className="hidden group-hover:inline">{'-'}</span>
-                {'>'} Learn about me
+                <span className="hidden group-hover:inline">{"-"}</span>
+                {">"} Learn about me
               </Link>
               {/* <button className="group text-left p-2 border-b-2 border-dashed border-b-green-400 hover:bg-slate-100 dark:hover:bg-slate-900">
                 <span className="hidden group-hover:inline">{'-'}</span>

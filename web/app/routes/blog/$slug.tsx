@@ -1,9 +1,9 @@
-import type { LoaderArgs, MetaFunction } from '@remix-run/cloudflare';
-import { Link, useLoaderData } from '@remix-run/react';
-import format from 'date-fns/format';
-import type { Post } from '~/common/types';
-import { BlockContent } from '~/components/organisms/block-content';
-import { fetchBlogPost, getUrlForImage } from '~/lib/sanity';
+import type { LoaderArgs, MetaFunction } from "@remix-run/cloudflare";
+import { Link, useLoaderData } from "@remix-run/react";
+import format from "date-fns/format";
+import type { Post } from "~/common/types";
+import { BlockContent } from "~/components/organisms/block-content";
+import { fetchBlogPost, getUrlForImage } from "~/lib/sanity";
 // import { slugify } from "~/utils/string-utils";
 
 export const meta: MetaFunction = ({ data, parentsData }) => {
@@ -11,7 +11,7 @@ export const meta: MetaFunction = ({ data, parentsData }) => {
   return {
     title: `${data.post.title} | ${title}`,
     description: data.post.plainTextExcerpt,
-    'og:image': getUrlForImage(data.post.mainImage).size(1200, 627).url(),
+    "og:image": getUrlForImage(data.post.mainImage).size(1200, 627).url(),
   };
 };
 
@@ -24,7 +24,7 @@ export async function loader({ params }: LoaderArgs) {
 }
 
 export function links() {
-  return [{ rel: 'stylesheet', href: '/assets/prism.css' }];
+  return [{ rel: "stylesheet", href: "/assets/prism.css" }];
 }
 
 export default function BlogPostPage() {
@@ -50,7 +50,7 @@ export default function BlogPostPage() {
             >
               <h1 className="font-heading">{post.title}</h1>
               <p className="font-heading text-xs">
-                {format(new Date(post.publishedAt), 'MMMM d, y')}
+                {format(new Date(post.publishedAt), "MMMM d, y")}
               </p>
             </div>
           </div>
@@ -66,7 +66,7 @@ export default function BlogPostPage() {
           </div>
         </div>
       </article>
-      <aside className="w-full max-w-xs py-2 lg:border-l-2 border-green-400 border-dashed">
+      <aside className="w-full max-w-xs py-2 lg:border-l-2 border-green-400 border-none">
         {/* <div className="py-2">
           <h3 className="px-4 font-heading text-xs">Categories</h3>
           {post.categories.map((category) => (
@@ -115,7 +115,7 @@ export default function BlogPostPage() {
                   {relatedPost.shortTitle || relatedPost.title}
                 </h4>
                 <p className="font-inlineCode text-xs">
-                  {format(new Date(relatedPost.publishedAt), 'MMMM d, y')}
+                  {format(new Date(relatedPost.publishedAt), "MMMM d, y")}
                 </p>
               </Link>
             ))}
