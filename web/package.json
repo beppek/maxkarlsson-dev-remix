@@ -17,9 +17,9 @@
   "dependencies": {
     "@headlessui/react": "^1.7.4",
     "@heroicons/react": "^2.0.13",
-    "@remix-run/cloudflare": "^1.8.0",
-    "@remix-run/cloudflare-pages": "^1.8.0",
-    "@remix-run/react": "^1.8.0",
+    "@remix-run/cloudflare": "^1.8.2",
+    "@remix-run/cloudflare-pages": "^1.8.2",
+    "@remix-run/react": "^1.8.2",
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/image-url": "^1.0.1",
     "cross-env": "^7.0.3",
@@ -33,9 +33,9 @@
     "react-youtube": "^9.0.3"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^3.14.1",
-    "@remix-run/dev": "^1.8.0",
-    "@remix-run/eslint-config": "^1.8.0",
+    "@cloudflare/workers-types": "^3.18.0",
+    "@remix-run/dev": "^1.8.2",
+    "@remix-run/eslint-config": "^1.8.2",
     "@tailwindcss/typography": "^0.5.8",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
