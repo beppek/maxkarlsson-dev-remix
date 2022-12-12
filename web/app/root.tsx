@@ -1,4 +1,4 @@
-import type { MetaFunction } from '@remix-run/cloudflare';
+import type { MetaFunction } from "@remix-run/cloudflare";
 import {
   Links,
   LiveReload,
@@ -6,10 +6,10 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-} from '@remix-run/react';
-import { Layout } from '~/components/templates/layout';
-import { fetchLayout, getUrlForImage } from '~/lib/sanity';
-import styles from './tailwind.css';
+} from "@remix-run/react";
+import { Layout } from "~/components/templates/layout";
+import { fetchLayout, getUrlForImage } from "~/lib/sanity";
+import styles from "./tailwind.css";
 
 export const meta: MetaFunction = ({
   data: {
@@ -17,34 +17,34 @@ export const meta: MetaFunction = ({
   },
 }) => {
   return {
-    charset: 'utf-8',
+    charset: "utf-8",
     title: title,
     description:
-      'Max Karlsson, a web developer, shares his insights and expertise on web development topics. From coding tips to industry trends, check out this blog for valuable insights and advice.',
-    'og:image': getUrlForImage(logo).size(1200, 627).url(),
-    viewport: 'width=device-width,initial-scale=1',
+      "Max Karlsson, a web developer, shares his insights and expertise on web development topics. From coding tips to industry trends, check out this blog for valuable insights and advice.",
+    "og:image": getUrlForImage(logo).size(1200, 627).url(),
+    viewport: "width=device-width,initial-scale=1",
   };
 };
 
 export function links() {
   return [
-    { rel: 'stylesheet', href: styles },
-    { rel: 'preconnect', href: 'https://cdn.sanity.io' },
+    { rel: "stylesheet", href: styles },
+    { rel: "preconnect", href: "https://cdn.sanity.io" },
     {
-      rel: 'preconnect',
+      rel: "preconnect",
       // href: 'https://fonts.googleapis.com',
-      href: 'https://fonts.gstatic.com',
-      crossorigin: true,
+      href: "https://fonts.gstatic.com",
+      crossOrigin: "true",
     },
     {
-      rel: 'preload',
-      as: 'style',
-      href: 'https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fira+Sans&display=swap',
-      onload: "this.rel='stylesheet'",
+      rel: "preload",
+      as: "style",
+      href: "https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fira+Sans&display=swap",
+      onLoad: "this.rel='stylesheet'",
     },
     {
-      rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fira+Sans&display=swap',
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fira+Sans&display=swap",
     },
   ];
 }
