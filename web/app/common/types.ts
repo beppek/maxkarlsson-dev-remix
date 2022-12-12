@@ -66,11 +66,11 @@ export type BodyContent = {
 };
 
 export enum CMSContentType {
-  post = 'post',
-  page = 'page',
-  route = 'route',
-  staticRoute = 'staticRoute',
-  globalSiteLayout = 'globalSiteLayout',
+  post = "post",
+  page = "page",
+  route = "route",
+  staticRoute = "staticRoute",
+  globalSiteLayout = "globalSiteLayout",
 }
 
 export interface CMSOpenGraph {
@@ -79,7 +79,7 @@ export interface CMSOpenGraph {
   image: CMSImage;
   locale: string;
   title: string;
-  _type: 'openGraph';
+  _type: "openGraph";
 }
 
 export interface CMSContentBase {
@@ -109,8 +109,14 @@ export interface Post extends CMSContentBase {
   latestPosts: Post[];
 }
 
+export interface ListingPostFragment
+  extends Omit<
+    Post,
+    "body" | "plainTextExcerpt" | "openGraph" | "relatedPosts" | "latestPosts"
+  > {}
+
 export interface PageSection {
-  _type: 'textSection' | 'hero';
+  _type: "textSection" | "hero";
   label: string;
   _key: string;
 }
