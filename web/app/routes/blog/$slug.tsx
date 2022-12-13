@@ -1,6 +1,7 @@
 import type { LoaderArgs, MetaFunction } from "@remix-run/cloudflare";
 import { Link, useLoaderData } from "@remix-run/react";
 import format from "date-fns/format";
+import { useMemo } from "react";
 import type { Post } from "~/common/types";
 import { BlockContent } from "~/components/organisms/block-content";
 import { fetchBlogPost, getUrlForImage } from "~/lib/sanity";
@@ -29,16 +30,46 @@ export function links() {
 
 export default function BlogPostPage() {
   const { post }: { post: Post } = useLoaderData();
+  const mainImageUrl = useMemo(
+    () => ({
+      mobile: getUrlForImage(post.mainImage).width(410).height(250).url(),
+      desktop: getUrlForImage(post.mainImage).width(1200).height(400).url(),
+    }),
+    [post.mainImage]
+  );
   return (
     <div className="flex flex-col lg:flex-row w-full text-black dark:text-white">
       <article className="w-full px-4 lg:px-8 ">
         <div className="flex justify-center">
           <div className="relative">
-            <img
+            <picture>
+              <source
+                srcSet={mainImageUrl.mobile}
+                className="lg:h-[400px] lg:w-[1200px] relative"
+                media="(max-width: 1023px)"
+                height={200}
+                width={328}
+              />
+              <source
+                srcSet={mainImageUrl.desktop}
+                className="h-[200px] w-full relative"
+                media="(min-width: 1024px)"
+                height={400}
+                width={1200}
+              />
+              <img
+                alt={post.mainImage.alt}
+                src={mainImageUrl.desktop}
+                className="h-[200px] lg:h-[400px] w-full lg:w-[1200px] relative"
+                height={400}
+                width={1200}
+              />
+            </picture>
+            {/* <img
               className="h-[200px] lg:h-[400px] w-full lg:w-[1200px] relative"
               src={getUrlForImage(post.mainImage).width(1200).height(400).url()}
               alt={post.mainImage.alt}
-            />
+            /> */}
             <div
               className="lg:absolute lg:bottom-6 lg:-left-6 px-2 py-2 lg:py-6 lg:px-8 text-white"
               style={{
