@@ -65,7 +65,8 @@ export default function App() {
         <script
           defer
           data-domain="maxkarlsson.dev"
-          src="https://plausible.io/js/script.js"
+          data-api="https://floral-smoke-a5ad.hyperlane.workers.dev/maxk/event"
+          src="https://floral-smoke-a5ad.hyperlane.workers.dev/maxk/script.js"
         ></script>
       </head>
       <body>
