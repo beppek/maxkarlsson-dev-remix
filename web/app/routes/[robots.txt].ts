@@ -6,7 +6,7 @@ export async function loader() {
       Disallow: /nogooglebot/
   
       User-agent: *
-      Disallow: /
+      Allow: /
   
       Sitemap: https://maxkarlsson.dev/sitemap.xml
       `;
