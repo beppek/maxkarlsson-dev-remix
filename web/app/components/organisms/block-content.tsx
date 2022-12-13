@@ -89,7 +89,7 @@ const serializers = (colors?: { main: string; secondary: string }) => ({
     link: ({ children, mark }: any) => {
       return (
         <a
-          className="transition-colors dark:text-green-400 text-green-600 dark:hover:text-pink-400 hover:text-pink-600"
+          className="transition-colors dark:text-green-400 text-green-700 dark:hover:text-pink-400 hover:text-pink-600"
           href={mark.href}
         >
           {children}
