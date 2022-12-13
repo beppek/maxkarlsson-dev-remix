@@ -15,7 +15,7 @@ export function Header() {
 
   const logoUrl = useMemo(
     () => ({
-      mobile: getUrlForImage(logo).size(64, 64).url(),
+      mobile: getUrlForImage(logo).size(80, 80).url(),
       desktop: getUrlForImage(logo).size(60, 60).url(),
     }),
     [logo]

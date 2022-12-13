@@ -32,7 +32,7 @@ export default function BlogPostPage() {
   const { post }: { post: Post } = useLoaderData();
   const mainImageUrl = useMemo(
     () => ({
-      mobile: getUrlForImage(post.mainImage).width(410).height(250).url(),
+      mobile: getUrlForImage(post.mainImage).width(656).height(400).url(),
       desktop: getUrlForImage(post.mainImage).width(1200).height(400).url(),
     }),
     [post.mainImage]
