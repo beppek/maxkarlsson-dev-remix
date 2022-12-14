@@ -1,7 +1,10 @@
-import type { LoaderArgs, MetaFunction } from "@remix-run/cloudflare";
+import type {
+  LoaderArgs,
+  MetaFunction,
+  LinksFunction,
+} from "@remix-run/cloudflare";
 import { Link, useLoaderData } from "@remix-run/react";
 import format from "date-fns/format";
-import { useMemo } from "react";
 import type { Post } from "~/common/types";
 import { BlockContent } from "~/components/organisms/block-content";
 import { fetchBlogPost, getUrlForImage } from "~/lib/sanity";
@@ -19,26 +22,30 @@ export const meta: MetaFunction = ({ data, parentsData }) => {
 export async function loader({ params }: LoaderArgs) {
   const { slug } = params as { slug: string };
   const post = await fetchBlogPost({ slug });
+  const mainImageUrl = {
+    mobile: getUrlForImage(post.mainImage).width(656).height(400).url(),
+    desktop: getUrlForImage(post.mainImage).width(1200).height(400).url(),
+  };
   return {
     post,
+    mainImageUrl,
   };
 }
 
-export function links() {
+export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: "/assets/prism.css" }];
-}
+};
 
 export default function BlogPostPage() {
-  const { post }: { post: Post } = useLoaderData();
-  const mainImageUrl = useMemo(
-    () => ({
-      mobile: getUrlForImage(post.mainImage).width(656).height(400).url(),
-      desktop: getUrlForImage(post.mainImage).width(1200).height(400).url(),
-    }),
-    [post.mainImage]
-  );
+  const {
+    post,
+    mainImageUrl,
+  }: { post: Post; mainImageUrl: { mobile: string; desktop: string } } =
+    useLoaderData();
   return (
     <div className="flex flex-col lg:flex-row w-full text-black dark:text-white">
+      <link rel="preload" as="image" href={mainImageUrl.desktop} />
+      <link rel="preload" as="image" href={mainImageUrl.mobile} />
       <article className="w-full px-4 lg:px-8 ">
         <div className="flex justify-center">
           <div className="relative">
