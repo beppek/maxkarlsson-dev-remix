@@ -39,6 +39,10 @@ export const links: LinksFunction = () => {
       href: "/assets/prism.css",
       as: "style",
     },
+    {
+      rel: "stylesheet",
+      href: "/assets/prism.css",
+    },
   ];
 };
 
