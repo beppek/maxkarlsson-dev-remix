@@ -33,7 +33,14 @@ export async function loader({ params }: LoaderArgs) {
 }
 
 export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: "/assets/prism.css" }];
+  return [
+    {
+      rel: "stylesheet",
+      href: "/assets/prism.css",
+      media: "print",
+      onLoad: `"this.media='all'"`,
+    },
+  ];
 };
 
 function dynamicLinks({ data }) {
