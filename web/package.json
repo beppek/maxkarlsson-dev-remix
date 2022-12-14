@@ -30,7 +30,8 @@
     "react-dom": "^18.2.0",
     "react-inlinesvg": "^3.0.1",
     "react-refractor": "^2.1.7",
-    "react-youtube": "^9.0.3"
+    "react-youtube": "^9.0.3",
+    "remix-utils": "^5.1.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^3.18.0",

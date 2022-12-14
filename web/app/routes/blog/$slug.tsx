@@ -36,6 +36,25 @@ export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: "/assets/prism.css" }];
 };
 
+function dynamicLinks({ data }) {
+  return [
+    {
+      rel: "preload",
+      href: data.mainImageUrl.desktop,
+      as: "image",
+    },
+    {
+      rel: "preload",
+      href: data.mainImageUrl.mobile,
+      as: "image",
+    },
+  ];
+}
+
+export const handle = {
+  dynamicLinks,
+};
+
 export default function BlogPostPage() {
   const {
     post,
@@ -44,8 +63,6 @@ export default function BlogPostPage() {
     useLoaderData();
   return (
     <div className="flex flex-col lg:flex-row w-full text-black dark:text-white">
-      <link rel="preload" as="image" href={mainImageUrl.desktop} />
-      <link rel="preload" as="image" href={mainImageUrl.mobile} />
       <article className="w-full px-4 lg:px-8 ">
         <div className="flex justify-center">
           <div className="relative">

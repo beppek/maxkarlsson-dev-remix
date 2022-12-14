@@ -7,6 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { DynamicLinks } from "remix-utils";
 import { Layout } from "~/components/templates/layout";
 import { fetchLayout, getUrlForImage } from "~/lib/sanity";
 import styles from "./tailwind.css";
@@ -62,6 +63,7 @@ export default function App() {
       <head>
         <Meta />
         <Links />
+        <DynamicLinks />
         <script
           defer
           data-domain="maxkarlsson.dev"
