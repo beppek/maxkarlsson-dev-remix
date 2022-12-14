@@ -35,10 +35,9 @@ export async function loader({ params }: LoaderArgs) {
 export const links: LinksFunction = () => {
   return [
     {
-      rel: "stylesheet",
+      rel: "preload",
       href: "/assets/prism.css",
-      media: "print",
-      onLoad: `"this.media='all'"`,
+      as: "style",
     },
   ];
 };
