@@ -5,6 +5,7 @@
     "./**/*.tsx"
   ],
   "compilerOptions": {
+    "module": "ESNext",
     "jsx": "react",
     "esModuleInterop": true
   }

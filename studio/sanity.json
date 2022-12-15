@@ -24,7 +24,6 @@
     "better-slug",
     "social-preview",
     "autocomplete-tags",
-    "dashboard-widget-vercel",
     "@sanity/dashboard",
     "@sanity/code-input",
     "plausible-analytics",

@@ -1,4 +1,5 @@
-const projectUrl = process.env.SANITY_STUDIO_PROJECT_URL;
+// @ts-ignore
+const projectUrl = import.meta.env.SANITY_STUDIO_PROJECT_URL;
 
 type Document = {
   _type: string;

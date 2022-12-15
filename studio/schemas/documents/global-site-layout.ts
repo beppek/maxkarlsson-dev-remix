@@ -1,5 +1,4 @@
 import { FcGlobe } from 'react-icons/fc';
-import Tabs from 'sanity-plugin-tabs';
 
 export default {
   name: 'globalSiteLayout',
@@ -10,7 +9,6 @@ export default {
     {
       name: 'tabs',
       type: 'object',
-      inputComponent: Tabs,
       fieldsets: [
         { name: 'header', title: 'Header', options: { sortOrder: 10 } },
         { name: 'footer', title: 'Footer', options: { sortOrder: 20 } },

@@ -1,5 +1,7 @@
-const previewSecret = process.env.SANITY_STUDIO_PREVIEW_SECRET;
-const projectUrl = process.env.SANITY_STUDIO_PROJECT_URL;
+// @ts-ignore
+const previewSecret = import.meta.env.SANITY_STUDIO_PREVIEW_SECRET;
+// @ts-ignore
+const projectUrl = import.meta.env.SANITY_STUDIO_PROJECT_URL;
 
 /**
  * This function resolves the preview url for Next.js sites by setting the preview secret,
