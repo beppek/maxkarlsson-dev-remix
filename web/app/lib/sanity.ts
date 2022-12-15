@@ -1,15 +1,15 @@
-import PicoSanity from "picosanity";
-import groq from "groq";
+import PicoSanity from 'picosanity';
+import groq from 'groq';
 
-import imageUrlBuilder from "@sanity/image-url";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
-import type { ListingPostFragment } from "~/common/types";
+import imageUrlBuilder from '@sanity/image-url';
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
+import type { ListingPostFragment } from '~/common/types';
 
 const config = {
-  apiVersion: "2021-03-25",
+  apiVersion: '2021-03-25',
   // Find these in your ./studio/sanity.json file
-  dataset: "production",
-  projectId: "hytow8kc",
+  dataset: 'production',
+  projectId: 'hytow8kc',
   useCdn: true,
 };
 
@@ -19,7 +19,7 @@ export const sanityClient = new PicoSanity(config);
 const builder = imageUrlBuilder(sanityClient);
 
 export const getUrlForImage = (source: SanityImageSource) =>
-  builder.image(source).auto("format");
+  builder.image(source).auto('format');
 
 export async function fetchLogo() {
   const res = await sanityClient.fetch(
@@ -28,7 +28,7 @@ export async function fetchLogo() {
         ...,
         asset->
       }
-    }`
+    }`,
   );
   return res;
 }
@@ -94,7 +94,7 @@ export async function fetchLayout() {
           }
         }
       },
-    }`
+    }`,
   );
   return res;
 }
@@ -109,7 +109,7 @@ export async function fetchBackgroundOptions() {
           asset->
         }
       },
-    }`
+    }`,
   );
   return res;
 }
@@ -165,7 +165,7 @@ export async function fetchBlogPost({ slug }: { slug: string }) {
         ${listingPostFragment}
       },
     }`,
-    { slug }
+    { slug },
   );
   return res;
 }
@@ -174,7 +174,7 @@ export async function fetchAllBlogPosts(): Promise<ListingPostFragment[]> {
   const res = await sanityClient.fetch(
     groq`*[_type == 'post' && dateTime(publishedAt) <= dateTime(now())] | order(publishedAt desc)[] {
       ${listingPostFragment}
-    }`
+    }`,
   );
   return res;
 }
@@ -192,7 +192,7 @@ export async function fetchPage({ slug }: { slug: string }) {
       },  
       sections,
     }`,
-    { slug }
+    { slug },
   );
   return res;
 }
@@ -205,8 +205,14 @@ export async function fetchDocumentCount({
   _type: string;
 }) {
   const query = groq`
-    count(*[_type == $type${!preview ? ' && !(_id in path("drafts.**"))' : ""}])
+    count(*[_type == $type${!preview ? ' && !(_id in path("drafts.**"))' : ''}])
   `;
   const data = await sanityClient.fetch(query, { type: _type });
+  return data;
+}
+
+export async function fetchLatestQuickThought() {
+  const query = groq`*[_type == 'quickThought'&& dateTime(publishedAt) <= dateTime(now())] | order(_updatedAt desc)[0]`;
+  const data = await sanityClient.fetch(query);
   return data;
 }

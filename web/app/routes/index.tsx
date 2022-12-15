@@ -1,7 +1,11 @@
-import type { MetaFunction } from "@remix-run/cloudflare";
-import { Link, useLoaderData } from "@remix-run/react";
-import { useMemo } from "react";
-import { fetchLayout, getUrlForImage } from "~/lib/sanity";
+import type { MetaFunction } from '@remix-run/cloudflare';
+import { Link, useLoaderData } from '@remix-run/react';
+import { useMemo } from 'react';
+import {
+  fetchLatestQuickThought,
+  fetchLayout,
+  getUrlForImage,
+} from '~/lib/sanity';
 
 export const meta: MetaFunction = (data) => {
   const {
@@ -15,15 +19,20 @@ export const meta: MetaFunction = (data) => {
 };
 
 export async function loader() {
-  const layout = await fetchLayout();
+  const [layout, latestQuickThought] = await Promise.all([
+    fetchLayout(),
+    fetchLatestQuickThought(),
+  ]);
   return {
     layout,
+    latestQuickThought,
   };
 }
 
 export default function Index() {
   const {
     layout: { logo, title },
+    latestQuickThought,
   } = useLoaderData();
 
   const logoUrl = useMemo(
@@ -31,7 +40,7 @@ export default function Index() {
       mobile: getUrlForImage(logo).size(120, 120).url(),
       desktop: getUrlForImage(logo).size(300, 300).url(),
     }),
-    [logo]
+    [logo],
   );
   return (
     <div className="flex items-center h-[calc(100vh-142px)] w-full">
@@ -67,9 +76,14 @@ export default function Index() {
               {title}
             </span>
           </h1>
-          <p className="text-center font-heading text-green-700 dark:text-green-400 text-xs lg:text-md">
-            Hey there, nice to see you!
-          </p>
+          <div className="">
+            <p className="lg:relative text-center font-heading text-green-700 dark:text-green-400 text-xs lg:text-md lg:ml-10">
+              <span className="lg:absolute -top-3 lg:-left-10 text-3xl">
+                💭
+              </span>
+              <br className="lg:hidden" /> {latestQuickThought.content}
+            </p>
+          </div>
         </div>
         <div className="px-2 justify-center">
           <div className="flex justify-center">
@@ -78,15 +92,15 @@ export default function Index() {
                 to="/blog"
                 className="group text-left p-2 border-b-2 border-dashed border-b-green-400 hover:bg-slate-100 dark:hover:bg-slate-900"
               >
-                <span className="hidden group-hover:inline">{"-"}</span>
-                {">"} Read my blog
+                <span className="hidden group-hover:inline">{'-'}</span>
+                {'>'} Read my blog
               </Link>
               <Link
                 to="/about"
                 className="group text-left p-2 border-b-2 border-dashed border-b-green-400 hover:bg-slate-100 dark:hover:bg-slate-900"
               >
-                <span className="hidden group-hover:inline">{"-"}</span>
-                {">"} Learn about me
+                <span className="hidden group-hover:inline">{'-'}</span>
+                {'>'} Learn about me
               </Link>
               {/* <button className="group text-left p-2 border-b-2 border-dashed border-b-green-400 hover:bg-slate-100 dark:hover:bg-slate-900">
                 <span className="hidden group-hover:inline">{'-'}</span>
