@@ -1,7 +1,7 @@
-import { Link } from "@remix-run/react";
-import type { ComponentProps, ReactNode } from "react";
-import type { Post } from "~/common/types";
-import { BlogPostListing } from "~/components/organisms/blog-post-listing";
+import { Link } from '@remix-run/react';
+import type { ComponentProps, ReactNode } from 'react';
+import type { Post } from '~/common/types';
+import { BlogPostListing } from '~/components/organisms/blog-post-listing';
 
 interface Props {
   posts: Post[];
@@ -10,7 +10,7 @@ interface Props {
 }
 
 interface PaginationLinkProps {
-  to: ComponentProps<typeof Link>["to"];
+  to: ComponentProps<typeof Link>['to'];
   children: ReactNode;
   disabled: boolean;
 }
@@ -44,18 +44,18 @@ export function BlogListingTemplate({ posts, totalPages, currentPage }: Props) {
           disabled={disablePrevious}
           to={
             disablePrevious
-              ? "/blog"
+              ? '/blog'
               : currentPage === 2
-              ? "/blog"
+              ? '/blog'
               : `/blog/page/${currentPage - 1}`
           }
         >
           &lt; Previous
-        </PaginationLink>{" "}
-        ...{" "}
+        </PaginationLink>{' '}
+        ...{' '}
         <PaginationLink
           disabled={disableNext}
-          to={disableNext ? "" : `/blog/page/${currentPage + 1}`}
+          to={disableNext ? '' : `/blog/page/${currentPage + 1}`}
         >
           Next &gt;
         </PaginationLink>

@@ -35,21 +35,14 @@ export function Header() {
                 width="32"
                 height="32"
               />
-              <source
-                srcSet={`${logoUrl.desktop}`}
-                sizes="(min-width: 640px)"
-                className="lg:h-8 w-auto h-10"
-                width="50"
-                height="50"
-              />
               <img
                 srcSet={`${logoUrl.mobile} 40w, ${logoUrl.desktop} 50w`}
                 sizes="(max-width: 639px) 40px, 50px"
                 className="lg:h-8 w-auto h-10 rounded-full"
-                src={logoUrl.desktop}
+                src={logoUrl.mobile}
                 alt={title}
-                width="50"
-                height="50"
+                width="32"
+                height="32"
               />
             </picture>
           </NavLink>
@@ -180,14 +173,35 @@ export function Header() {
           <div className="shadow-lg border-2 border-dashed border-green-400 ring-1 ring-black ring-opacity-5 bg-white dark:bg-black divide-y-2 divide-dashed divide-gray-200 dark:divide-gray-800">
             <div className="pt-5 pb-6 px-4">
               <div className="flex items-center justify-between">
-                <div>
-                  <img
-                    className="h-8 w-auto"
-                    src={logoUrl.mobile}
-                    alt={title}
-                  />
-                </div>
-                <div className="-mr-2">
+                <NavLink to="/" className="flex">
+                  <span className="sr-only">{title}</span>
+                  <picture>
+                    <source
+                      srcSet={`${logoUrl.mobile}`}
+                      media="(max-width: 639px)"
+                      className="lg:h-8 w-auto h-10"
+                      width="32"
+                      height="32"
+                    />
+                    <source
+                      srcSet={`${logoUrl.desktop}`}
+                      sizes="(min-width: 640px)"
+                      className="lg:h-8 w-auto h-10"
+                      width="50"
+                      height="50"
+                    />
+                    <img
+                      srcSet={`${logoUrl.mobile} 40w, ${logoUrl.desktop} 50w`}
+                      sizes="(max-width: 639px) 40px, 50px"
+                      className="lg:h-8 w-auto h-10 rounded-full"
+                      src={logoUrl.desktop}
+                      alt={title}
+                      width="50"
+                      height="50"
+                    />
+                  </picture>
+                </NavLink>
+                <div className="mt-1">
                   <Popover.Button className="bg-white dark:bg-black rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover-bg-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-400">
                     <span className="sr-only">Close menu</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
