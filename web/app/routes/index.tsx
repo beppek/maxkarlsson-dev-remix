@@ -77,7 +77,7 @@ export default function Index() {
             </span>
           </h1>
           <div className="">
-            <p className="lg:relative text-center font-heading text-green-700 dark:text-green-400 text-xs lg:text-md lg:ml-10">
+            <p className="lg:relative lg:max-w-2xl text-center font-heading text-green-700 dark:text-green-400 text-xs lg:text-md lg:ml-10">
               <span className="lg:absolute -top-3 lg:-left-10 text-3xl">
                 💭
               </span>
