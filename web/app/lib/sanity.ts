@@ -216,3 +216,9 @@ export async function fetchLatestQuickThought() {
   const data = await sanityClient.fetch(query);
   return data;
 }
+
+export async function fetchAllQuickThoughts() {
+  const query = groq`*[_type == 'quickThought'&& dateTime(publishedAt) <= dateTime(now())]`;
+  const data = await sanityClient.fetch(query);
+  return data;
+}
