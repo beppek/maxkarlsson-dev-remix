@@ -7,6 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import type { ReactElement } from "react";
 import { DynamicLinks } from "remix-utils";
 import { Layout } from "~/components/templates/layout";
 import { fetchLayout, getUrlForImage } from "~/lib/sanity";
@@ -57,7 +58,7 @@ export async function loader() {
   };
 }
 
-export default function App() {
+function Document({ children }: { children: ReactElement | ReactElement[] }) {
   return (
     <html lang="en">
       <head>
@@ -72,13 +73,55 @@ export default function App() {
         ></script>
       </head>
       <body>
-        <Layout>
-          <Outlet />
-        </Layout>
+        <Layout>{children}</Layout>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
       </body>
     </html>
+  );
+}
+
+export function CatchBoundary() {
+  return (
+    <Document>
+      <main className="px-4 lg:px-8 py-2 lg:py-20 w-full">
+        <div className="flex justify-center content-center">
+          <div className="text-black dark:text-white">
+            <div className="w-full lg:max-w-4xl">
+              <h2 className="font-heading text-2xl">
+                Hey mate, looks like you got lost!
+              </h2>
+              <p className="mt-4">
+                This page is out in woop woop, try something else.
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </Document>
+  );
+}
+
+export function ErrorBoundary({ error }) {
+  console.error(error);
+  return (
+    <html>
+      <head>
+        <title>Oh no!</title>
+      </head>
+      <body>
+        {/* add the UI you want your users to see */}
+        <p>Something went wrong</p>
+      </body>
+    </html>
+  );
+}
+
+export default function App() {
+  return (
+    <Document>
+      <Outlet />
+    </Document>
   );
 }

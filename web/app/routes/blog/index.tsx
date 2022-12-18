@@ -30,3 +30,12 @@ export default function Blog() {
     />
   );
 }
+
+export const CatchBoundary = () => {
+  return (
+    <div className="flex flex-col lg:flex-row w-full text-black dark:text-white">
+      <h2>Hey mate, looks like you got lost!</h2>
+      <p>That page is out in woop woop, try something else.</p>
+    </div>
+  );
+};

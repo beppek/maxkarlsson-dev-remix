@@ -13,15 +13,22 @@ import { fetchBlogPost, getUrlForImage } from "~/lib/sanity";
 export const meta: MetaFunction = ({ data, parentsData }) => {
   const { title } = parentsData.root.layout;
   return {
-    title: `${data.post.title} | ${title}`,
-    description: data.post.plainTextExcerpt,
-    "og:image": getUrlForImage(data.post.mainImage).size(1200, 627).url(),
+    title: `${data?.post?.title} | ${title}`,
+    description: data?.post?.plainTextExcerpt,
+    "og:image": data?.post?.mainImage
+      ? getUrlForImage(data?.post?.mainImage).size(1200, 627).url()
+      : null,
   };
 };
 
 export async function loader({ params }: LoaderArgs) {
   const { slug } = params as { slug: string };
   const post = await fetchBlogPost({ slug });
+  if (!post) {
+    throw new Response("Not Found", {
+      status: 404,
+    });
+  }
   const mainImageUrl = {
     mobile: getUrlForImage(post.mainImage).width(656).height(400).url(),
     desktop: getUrlForImage(post.mainImage).width(1200).height(400).url(),
@@ -50,12 +57,12 @@ function dynamicLinks({ data }) {
   return [
     {
       rel: "preload",
-      href: data.mainImageUrl.desktop,
+      href: data?.mainImageUrl?.desktop,
       as: "image",
     },
     {
       rel: "preload",
-      href: data.mainImageUrl.mobile,
+      href: data?.mainImageUrl?.mobile,
       as: "image",
     },
   ];
