@@ -7,15 +7,12 @@ export async function loader({ params }: LoaderArgs) {
     return redirect("/blog", 307);
   }
   const parts = path.split("/");
-  if (parts.length !== 3) {
-    throw new Response("Not Found", { status: 404 });
-  }
   const yearRegex = /^\d{4}$/;
   const monthRegex = /^\d{2}$/;
   if (!yearRegex.test(parts[0]) || !monthRegex.test(parts[1])) {
     throw new Response("Not Found", { status: 404 });
   }
-  const slug = parts[parts.length - 1];
+  const slug = parts[2];
   return redirect(`/blog/${slug}`, 301);
 }
 
