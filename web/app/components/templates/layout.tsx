@@ -1,5 +1,5 @@
-import type { ReactElement } from 'react';
-import { Header } from '~/components/organisms/header';
+import type { ReactElement } from "react";
+import { Header } from "~/components/organisms/header";
 
 interface LayoutProps {
   children: ReactElement | ReactElement[];

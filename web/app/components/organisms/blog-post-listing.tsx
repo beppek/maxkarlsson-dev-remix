@@ -37,6 +37,8 @@ export function BlogPostListing({ post }: Props) {
           border-solid
           text-black
           dark:text-white
+          rounded-xl
+          overflow-hidden
         `}
     >
       <span
@@ -55,7 +57,7 @@ export function BlogPostListing({ post }: Props) {
         />
         <span className="inline-block p-2 lg:p-4 font-heading">
           <h3 className="text-sm">{post.shortTitle || post.title}</h3>
-          <p className="text-xs pt-4 px-2">
+          <p className="text-xs text-gray-200 pt-4">
             {format(new Date(post.publishedAt), "MMMM d, y")}
           </p>
         </span>

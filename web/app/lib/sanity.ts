@@ -1,25 +1,36 @@
-import PicoSanity from 'picosanity';
-import groq from 'groq';
+import PicoSanity from "picosanity";
+import groq from "groq";
 
-import imageUrlBuilder from '@sanity/image-url';
-import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
-import type { ListingPostFragment } from '~/common/types';
+import imageUrlBuilder from "@sanity/image-url";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import type { ListingPostFragment } from "~/common/types";
 
 const config = {
-  apiVersion: '2021-03-25',
+  apiVersion: "2021-03-25",
   // Find these in your ./studio/sanity.json file
-  dataset: 'production',
-  projectId: 'hytow8kc',
+  dataset: "production",
+  projectId: "hytow8kc",
   useCdn: true,
 };
 
 export const sanityClient = new PicoSanity(config);
 
+interface Args {
+  previewToken?: string;
+}
+
+const previewClient = (apiToken: string) =>
+  new PicoSanity({ ...config, token: apiToken, useCdn: false });
+
+function getClient({ previewToken }: Args) {
+  return previewToken ? previewClient(previewToken) : sanityClient;
+}
+
 // Get a pre-configured url-builder from your sanity client
 const builder = imageUrlBuilder(sanityClient);
 
 export const getUrlForImage = (source: SanityImageSource) =>
-  builder.image(source).auto('format');
+  builder.image(source).auto("format");
 
 export async function fetchLogo() {
   const res = await sanityClient.fetch(
@@ -28,7 +39,7 @@ export async function fetchLogo() {
         ...,
         asset->
       }
-    }`,
+    }`
   );
   return res;
 }
@@ -65,8 +76,8 @@ const listingPostFragment = groq`
   'author': author->{name, 'picture': picture.asset->url},
 `;
 
-export async function fetchLayout() {
-  const res = await sanityClient.fetch(
+export async function fetchLayout(args?: Args) {
+  const res = await getClient({ previewToken: args?.previewToken }).fetch(
     groq`*[_type == 'globalSiteLayout'][0] {
       'backgroundOptions': tabs.desktopSettings.backgroundOptions[]{
         ...,
@@ -94,13 +105,13 @@ export async function fetchLayout() {
           }
         }
       },
-    }`,
+    }`
   );
   return res;
 }
 
-export async function fetchBackgroundOptions() {
-  const res = await sanityClient.fetch(
+export async function fetchBackgroundOptions(config: Args) {
+  const res = await getClient(config).fetch(
     groq`*[_type == 'globalSiteLayout'][0] {
       'backgroundOptions': tabs.desktopSettings.backgroundOptions[]{
         ...,
@@ -109,13 +120,16 @@ export async function fetchBackgroundOptions() {
           asset->
         }
       },
-    }`,
+    }`
   );
   return res;
 }
 
-export async function fetchBlogPost({ slug }: { slug: string }) {
-  const res = await sanityClient.fetch(
+export async function fetchBlogPost({
+  slug,
+  previewToken,
+}: { slug: string } & Args) {
+  const res = await getClient({ previewToken }).fetch(
     groq`*[_type == 'post' && slug.current == $slug][0] {
       'id': _id,
       _updatedAt,
@@ -165,22 +179,27 @@ export async function fetchBlogPost({ slug }: { slug: string }) {
         ${listingPostFragment}
       },
     }`,
-    { slug },
+    { slug }
   );
   return res;
 }
 
-export async function fetchAllBlogPosts(): Promise<ListingPostFragment[]> {
-  const res = await sanityClient.fetch(
+export async function fetchAllBlogPosts(
+  args?: Args
+): Promise<ListingPostFragment[]> {
+  const res = await getClient({ previewToken: args?.previewToken }).fetch(
     groq`*[_type == 'post' && dateTime(publishedAt) <= dateTime(now())] | order(publishedAt desc)[] {
       ${listingPostFragment}
-    }`,
+    }`
   );
   return res;
 }
 
-export async function fetchPage({ slug }: { slug: string }) {
-  const res = await sanityClient.fetch(
+export async function fetchPage({
+  slug,
+  previewToken,
+}: { slug: string } & Args) {
+  const res = await getClient({ previewToken }).fetch(
     groq`*[_type == 'page' && slug.current == $slug][0] {
       'id': _id,
       _updatedAt,
@@ -192,33 +211,38 @@ export async function fetchPage({ slug }: { slug: string }) {
       },  
       sections,
     }`,
-    { slug },
+    { slug }
   );
   return res;
 }
 
 export async function fetchDocumentCount({
-  preview = false,
+  previewToken,
   _type,
 }: {
-  preview: boolean;
   _type: string;
-}) {
+} & Args) {
   const query = groq`
-    count(*[_type == $type${!preview ? ' && !(_id in path("drafts.**"))' : ''}])
+    count(*[_type == $type${
+      !previewToken ? ' && !(_id in path("drafts.**"))' : ""
+    }])
   `;
-  const data = await sanityClient.fetch(query, { type: _type });
+  const data = await getClient({ previewToken }).fetch(query, { type: _type });
   return data;
 }
 
-export async function fetchLatestQuickThought() {
+export async function fetchLatestQuickThought(args?: Args) {
   const query = groq`*[_type == 'quickThought'&& dateTime(publishedAt) <= dateTime(now())] | order(_updatedAt desc)[0]`;
-  const data = await sanityClient.fetch(query);
+  const data = await getClient({ previewToken: args?.previewToken }).fetch(
+    query
+  );
   return data;
 }
 
-export async function fetchAllQuickThoughts() {
+export async function fetchAllQuickThoughts(args?: Args) {
   const query = groq`*[_type == 'quickThought'&& dateTime(publishedAt) <= dateTime(now())] | order(publishedAt desc)`;
-  const data = await sanityClient.fetch(query);
+  const data = await getClient({ previewToken: args?.previewToken }).fetch(
+    query
+  );
   return data;
 }

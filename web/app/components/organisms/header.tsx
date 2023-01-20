@@ -1,10 +1,10 @@
-import { Fragment, useMemo } from 'react';
-import { Popover, Transition } from '@headlessui/react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { NavLink, useLoaderData } from '@remix-run/react';
-import { usePrefersDarkMode } from '~/hooks/use-prefers-dark-mode';
-import { getUrlForImage } from '~/lib/sanity';
-import { LightBulbIcon } from '../icons/light-bulb';
+import { Fragment, useMemo } from "react";
+import { Popover, Transition } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { NavLink, useLoaderData } from "@remix-run/react";
+import { usePrefersDarkMode } from "~/hooks/use-prefers-dark-mode";
+import { getUrlForImage } from "~/lib/sanity";
+import { LightBulbIcon } from "../icons/light-bulb";
 
 export function Header() {
   const {
@@ -18,7 +18,7 @@ export function Header() {
       mobile: getUrlForImage(logo).size(80, 80).url(),
       desktop: getUrlForImage(logo).size(60, 60).url(),
     }),
-    [logo],
+    [logo]
   );
 
   return (
@@ -77,8 +77,8 @@ export function Header() {
                     dark:hover:text-pink-100
                     ${
                       isActive
-                        ? 'border-green-400 text-green-900 dark:text-green-100'
-                        : 'border-slate-100 dark:border-slate-900 text-black dark:text-white'
+                        ? "border-green-400 text-green-900 dark:text-green-100"
+                        : "border-slate-100 dark:border-slate-900 text-black dark:text-white"
                     }
                     `;
                   }}
@@ -101,13 +101,13 @@ export function Header() {
                           group-hover:shadow-glow
                           ${
                             isActive
-                              ? 'bg-green-400 shadow-green-400 shadow-glow'
-                              : 'dark:bg-slate-700 bg-slate-200'
+                              ? "bg-green-400 shadow-green-400 shadow-glow"
+                              : "dark:bg-slate-700 bg-slate-200"
                           }
                     `}
                       />
                       <span className="lg:pt-2 flex items-center gap-2">
-                        {' '}
+                        {" "}
                         <img
                           className="w-6 h-6"
                           aria-hidden="true"
@@ -214,7 +214,7 @@ export function Header() {
                     <NavLink
                       key={item._key}
                       to={item.link.href}
-                      className="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50"
+                      className="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
                     >
                       <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-white dark:bg-black text-black dark:text-white">
                         <img

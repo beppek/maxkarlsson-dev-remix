@@ -72,6 +72,7 @@ module.exports = {
       boxShadow: {
         // glow: '0px 5px 40px -10px rgba(0, 0, 0, 0.25)',
         glow: "0 14px 30px 1px, 0 4px 12px, 0 1px 7px",
+        card: "0 3px 30px 1px, 0 2px 8px, 0 1px 7px",
         avatar: "0px 0px 20px -5px rgba(0, 0, 0, 0.25)",
         glass:
           "inset 29.2667px -29.2667px 29.2667px rgba(100, 127, 171, 0.096), inset -29.2667px 29.2667px 29.2667px rgba(255, 255, 255, 0.096)",
