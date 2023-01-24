@@ -1,4 +1,4 @@
-import { FcGlobe, FcNews, FcSettings } from "react-icons/fc";
+import { FcGlobe, FcNews, FcSettings, FcHome } from "react-icons/fc";
 // import { AiOutlineDesktop, AiOutlineMobile } from "react-icons/ai";
 // import { BsPencil } from "react-icons/bs";
 // import { VscGlobe } from "react-icons/vsc";
@@ -10,16 +10,24 @@ import { FcGlobe, FcNews, FcSettings } from "react-icons/fc";
 const BLOG_TYPES = ["post", "author", "category"];
 const SETTINGS_TYPES = ["siteSettings", "globalSiteLayout"];
 const OTHER_HIDDEN = ["media.tag"];
+const SINGLETONS = ["home"];
 
 export default (S) =>
   S.list()
     .title("Content")
     .items([
+      S.listItem()
+        .title("Home")
+        .icon(FcHome)
+        .child(S.editor().schemaType("home").documentId("home")),
       ...S.documentTypeListItems().filter(
         (listItem: any) =>
-          ![...BLOG_TYPES, ...SETTINGS_TYPES, ...OTHER_HIDDEN].includes(
-            listItem.getId()
-          )
+          ![
+            ...BLOG_TYPES,
+            ...SETTINGS_TYPES,
+            ...OTHER_HIDDEN,
+            ...SINGLETONS,
+          ].includes(listItem.getId())
       ),
       S.listItem()
         .title("Blog")

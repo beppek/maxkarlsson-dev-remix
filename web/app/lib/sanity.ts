@@ -246,3 +246,17 @@ export async function fetchAllQuickThoughts(args?: Args) {
   );
   return data;
 }
+
+export async function fetchHomePage(args?: Args) {
+  const query = groq`*[_type == 'home' && _id == 'home'][0] {
+    ...,
+    links[]{
+      ...,
+      'link': link.page->slug.current
+    }
+  }`;
+  const res = await getClient({ previewToken: args?.previewToken }).fetch(
+    query
+  );
+  return res;
+}

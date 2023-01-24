@@ -2,6 +2,7 @@ import type { MetaFunction } from "@remix-run/cloudflare";
 import { Link, useLoaderData } from "@remix-run/react";
 import { useMemo } from "react";
 import {
+  fetchHomePage,
   fetchLatestQuickThought,
   fetchLayout,
   getUrlForImage,
@@ -19,21 +20,70 @@ export const meta: MetaFunction = (data) => {
 };
 
 export async function loader() {
-  const [layout, latestQuickThought] = await Promise.all([
+  const [layout, latestQuickThought, home] = await Promise.all([
     fetchLayout(),
     fetchLatestQuickThought(),
+    fetchHomePage(),
   ]);
   return {
     layout,
     latestQuickThought,
+    home,
   };
+}
+
+function HomeLinkCard({ link, image, text }) {
+  const imageUrl = useMemo(
+    () => ({
+      mobile: getUrlForImage(image).size(384, 96).url(),
+      desktop: getUrlForImage(image).size(384, 480).url(),
+    }),
+    [image]
+  );
+  return (
+    <div className="relative group">
+      <Link
+        to={`/${link}`}
+        className="relative flex group justify-center items-center text-left p-6 border-2 border-green-400 rounded-xl hover:bg-slate-100/75 bg-white-alpha-70 dark:bg-black-alpha-70 dark:hover:bg-slate-900/75 lg:h-80 w-64 z-10 h-16 group-hover:scale-105 transition-all hover:shadow-card"
+      >
+        {text}
+        <span className="hidden group-hover:inline">{"-"}</span>
+        {">"}
+      </Link>
+      <picture>
+        <source
+          srcSet={imageUrl.mobile}
+          className="w-64"
+          media="(max-width: 1023px)"
+          height={80}
+          width={80}
+        />
+        <source
+          srcSet={imageUrl.desktop}
+          className="h-80 w-64"
+          media="(min-width: 1024px)"
+          height={112}
+          width={112}
+        />
+        <img
+          alt={image.alt}
+          src={imageUrl.desktop}
+          className="absolute top-0 z-0 h-16 lg:h-80 w-64 object-cover rounded-xl group-hover:scale-105 transition-all"
+          height={112}
+          width={112}
+        />
+      </picture>
+    </div>
+  );
 }
 
 export default function Index() {
   const {
     layout: { logo, title },
     latestQuickThought,
+    home,
   } = useLoaderData();
+  console.log("home :>> ", home);
 
   const logoUrl = useMemo(
     () => ({
@@ -91,7 +141,15 @@ export default function Index() {
           </p>
           <div className="flex justify-center">
             <div className="flex flex-col md:flex-row gap-4 lg:gap-8 font-heading text-purple-800 dark:text-purple-300 text-xs py-2 lg:py-6 px-12">
-              <div className="relative group">
+              {home.links.map((link) => (
+                <HomeLinkCard
+                  key={link._key}
+                  link={link.link}
+                  image={link.image}
+                  text={link.text}
+                />
+              ))}
+              {/* <div className="relative group">
                 <Link
                   to="/blog"
                   // className="group text-left p-2 border-b-2 border-dashed border-b-green-400 hover:bg-slate-100 dark:hover:bg-slate-900"
@@ -136,7 +194,7 @@ export default function Index() {
                   src="/images/stability-diffusion-grand-canyon.png"
                   alt="blog"
                 />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
