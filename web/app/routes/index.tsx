@@ -149,52 +149,6 @@ export default function Index() {
                   text={link.text}
                 />
               ))}
-              {/* <div className="relative group">
-                <Link
-                  to="/blog"
-                  // className="group text-left p-2 border-b-2 border-dashed border-b-green-400 hover:bg-slate-100 dark:hover:bg-slate-900"
-                  className="relative flex group justify-center items-center text-left p-6 border-2 border-green-400 rounded-xl hover:bg-slate-100/75 bg-white-alpha-70 dark:bg-black-alpha-70 dark:hover:bg-slate-900/75 lg:h-80 w-64 z-10 h-16 group-hover:scale-105 transition-all hover:shadow-card"
-                >
-                  Read my blog
-                  <span className="hidden group-hover:inline">{"-"}</span>
-                  {">"}
-                </Link>
-                <img
-                  className="absolute top-0 z-0 h-16 lg:h-80 w-64 object-cover rounded-xl group-hover:scale-105 transition-all"
-                  src="/images/stability-diffusion-preikestolen.png"
-                  alt="blog"
-                />
-              </div>
-              <div className="relative group">
-                <Link
-                  to="/quick-thoughts"
-                  className="relative flex group justify-center items-center text-left p-6 border-2 border-green-400 rounded-xl hover:bg-slate-100/75 bg-white-alpha-70 dark:bg-black-alpha-70 dark:hover:bg-slate-900/75 lg:h-80 w-64 z-10 h-16 group-hover:scale-105 transition-all hover:shadow-card"
-                >
-                  Read my mind
-                  <span className="hidden group-hover:inline">{"-"}</span>
-                  {">"}
-                </Link>
-                <img
-                  className="absolute top-0 z-0 h-16 lg:h-80 w-64 object-cover rounded-xl group-hover:scale-105 transition-all"
-                  src="/images/stability-diffusion-rockies.png"
-                  alt="blog"
-                />
-              </div>
-              <div className="relative group">
-                <Link
-                  to="/about"
-                  className="relative flex group justify-center items-center text-left p-6 border-2 border-green-400 rounded-xl hover:bg-slate-100/75 bg-white-alpha-70 dark:bg-black-alpha-70 dark:hover:bg-slate-900/75 lg:h-80 w-64 z-10 h-16 group-hover:scale-105 transition-all hover:shadow-card"
-                >
-                  Learn about me
-                  <span className="hidden group-hover:inline">{"-"}</span>
-                  {">"}
-                </Link>
-                <img
-                  className="absolute top-0 z-0 h-16 lg:h-80 w-64 object-cover rounded-xl group-hover:scale-105 transition-all"
-                  src="/images/stability-diffusion-grand-canyon.png"
-                  alt="blog"
-                />
-              </div> */}
             </div>
           </div>
         </div>
