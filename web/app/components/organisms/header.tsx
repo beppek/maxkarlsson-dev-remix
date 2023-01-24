@@ -127,6 +127,7 @@ export function Header() {
           </nav>
           <div className="flex items-center md:ml-12">
             <button
+              aria-label="toggle dark mode"
               className={`
                 flex 
                 flex-col 
@@ -237,6 +238,7 @@ export function Header() {
             </div>
             <div className="py-6 px-5 flex justify-center">
               <button
+                aria-label="toggle dark mode"
                 className={`
                     flex 
                     flex-row 
