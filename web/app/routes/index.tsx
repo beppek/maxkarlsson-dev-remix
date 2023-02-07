@@ -50,7 +50,7 @@ function HomeLinkCard({ link, image, text }) {
         <span className="hidden group-hover:inline">{"-"}</span>
         {">"}
       </Link>
-      <picture>
+      <picture className="absolute top-0 z-0 object-cover rounded-xl group-hover:scale-105 transition-all">
         <source
           srcSet={imageUrl.mobile}
           className="w-64"
@@ -68,7 +68,7 @@ function HomeLinkCard({ link, image, text }) {
         <img
           alt={image.alt}
           src={imageUrl.desktop}
-          className="absolute top-0 z-0 h-16 lg:h-80 w-64 object-cover rounded-xl group-hover:scale-105 transition-all"
+          className="h-16 lg:h-80 w-64"
           height={112}
           width={112}
         />
@@ -83,7 +83,6 @@ export default function Index() {
     latestQuickThought,
     home,
   } = useLoaderData();
-  console.log("home :>> ", home);
 
   const logoUrl = useMemo(
     () => ({
