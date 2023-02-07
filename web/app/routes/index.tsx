@@ -41,7 +41,7 @@ function HomeLinkCard({ link, image, text }) {
     [image]
   );
   return (
-    <div className="relative group">
+    <div className="relative group rounded-xl overflow-hidden">
       <Link
         to={`/${link}`}
         className="relative flex group justify-center items-center text-left p-6 border-2 border-green-400 rounded-xl hover:bg-slate-100/75 bg-white-alpha-70 dark:bg-black-alpha-70 dark:hover:bg-slate-900/75 lg:h-80 w-64 z-10 h-16 group-hover:scale-105 transition-all hover:shadow-card"
