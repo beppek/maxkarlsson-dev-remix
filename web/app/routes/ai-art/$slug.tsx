@@ -50,7 +50,7 @@ export default function AIArtGalleryPage() {
 
   return (
     <div className="flex flex-row justify-center w-full">
-      <div className="columns-1 md:columns-3 lg:columns-4 xl:columns-5 gap-4">
+      <div className="columns-1 md:columns-3 lg:columns-4 xl:columns-5 2xl:columns-6 3xl:columns-7 gap-4">
         {gallery.aiArtImage.map((aiArtImage: any) => (
           <Image
             className="block mb-4"
