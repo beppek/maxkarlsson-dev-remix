@@ -6,7 +6,7 @@ import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import type { ListingPostFragment } from "~/common/types";
 
 const config = {
-  apiVersion: "2021-03-25",
+  apiVersion: "2023-02-08",
   // Find these in your ./studio/sanity.json file
   dataset: "production",
   projectId: "hytow8kc",
@@ -258,5 +258,22 @@ export async function fetchHomePage(args?: Args) {
   const res = await getClient({ previewToken: args?.previewToken }).fetch(
     query
   );
+  return res;
+}
+
+export async function fetchAIArtGalleries(args?: Args) {
+  const query = groq`*[_type == 'aiArtGallery']`;
+  const res = await getClient({ previewToken: args?.previewToken }).fetch(
+    query
+  );
+  return res;
+}
+
+export async function fetchAIArtGallery({
+  slug,
+  previewToken,
+}: { slug: string } & Args) {
+  const query = groq`*[_type == 'aiArtGallery' && slug.current == $slug][0]`;
+  const res = await getClient({ previewToken }).fetch(query, { slug });
   return res;
 }

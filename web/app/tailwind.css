@@ -1135,6 +1135,11 @@ video {
   margin-bottom: 0.5rem;
 }
 
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .mt-4 {
   margin-top: 1rem;
 }
@@ -1173,6 +1178,18 @@ video {
 
 .mt-auto {
   margin-top: auto;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
 }
 
 .block {
@@ -1369,6 +1386,33 @@ video {
   cursor: not-allowed;
 }
 
+.resize {
+  resize: both;
+}
+
+.columns-5 {
+  -moz-columns: 5;
+       columns: 5;
+}
+
+.columns-2 {
+  -moz-columns: 2;
+       columns: 2;
+}
+
+.columns-1 {
+  -moz-columns: 1;
+       columns: 1;
+}
+
+.grid-flow-row {
+  grid-auto-flow: row;
+}
+
+.grid-flow-col {
+  grid-auto-flow: column;
+}
+
 .grid-cols-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -1377,12 +1421,20 @@ video {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
+.grid-cols-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
 .flex-row {
   flex-direction: row;
 }
 
 .flex-col {
   flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
 }
 
 .content-center {
@@ -1614,6 +1666,10 @@ video {
 
 .bg-white\/75 {
   background-color: rgb(255 255 255 / 0.75);
+}
+
+.bg-green-400\/75 {
+  background-color: rgb(74 222 128 / 0.75);
 }
 
 .bg-gradient-to-r {
@@ -2094,6 +2150,10 @@ h6 {
   background-color: rgb(226 232 240 / 0.75);
 }
 
+.hover\:bg-green-400\/75:hover {
+  background-color: rgb(74 222 128 / 0.75);
+}
+
 .hover\:text-pink-600:hover {
   --tw-text-opacity: 1;
   color: rgb(219 39 119 / var(--tw-text-opacity));
@@ -2134,6 +2194,11 @@ h6 {
   --tw-shadow: 5px 5px 0px rgba(20, 20, 30, 1);
   --tw-shadow-colored: 5px 5px 0px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.hover\:shadow-green-400:hover {
+  --tw-shadow-color: #4ade80;
+  --tw-shadow: var(--tw-shadow-colored);
 }
 
 .focus\:scale-105:focus {
@@ -2629,6 +2694,11 @@ h6 {
     flex: 1 1 0%;
   }
 
+  .md\:columns-3 {
+    -moz-columns: 3;
+         columns: 3;
+  }
+
   .md\:flex-row {
     flex-direction: row;
   }
@@ -2773,6 +2843,11 @@ h6 {
     max-width: 48rem;
   }
 
+  .lg\:columns-4 {
+    -moz-columns: 4;
+         columns: 4;
+  }
+
   .lg\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -2875,6 +2950,11 @@ h6 {
 }
 
 @media (min-width: 1280px) {
+  .xl\:columns-5 {
+    -moz-columns: 5;
+         columns: 5;
+  }
+
   .xl\:grid-cols-5 {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
