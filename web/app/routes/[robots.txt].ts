@@ -4,6 +4,13 @@ export async function loader() {
   const robotText = `
       User-agent: Googlebot
       Disallow: /nogooglebot/
+
+      User-agent: Google-Extended
+      Disallow:    /
+
+      User-agent: GPTBot
+      User-agent: ChatGPT-User
+      Disallow: /
   
       User-agent: *
       Allow: /
@@ -14,7 +21,7 @@ export async function loader() {
   return new Response(robotText, {
     status: 200,
     headers: {
-      "Content-Type": "text/plain",
+      'Content-Type': 'text/plain',
     },
   });
 }
